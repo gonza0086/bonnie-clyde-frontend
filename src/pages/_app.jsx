@@ -6,6 +6,7 @@ import ThemeContext from '@/contexts/ThemeContext';
 
 // Styles
 import '@/styles/globals.css';
+import Navbar from '@/components/Navbar';
 
 export default function App({ Component, pageProps }) {
     return (
@@ -18,6 +19,7 @@ export default function App({ Component, pageProps }) {
             </Head>
 
             <ThemeContext>
+                <Navbar />
                 <Component {...pageProps} />
             </ThemeContext>
         </>
