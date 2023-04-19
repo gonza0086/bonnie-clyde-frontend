@@ -50,12 +50,16 @@ h3 {
     width: 100vw;
 }
 
+.title {
+    margin-bottom: 1.5rem;
+}
+
 .text-input {
     margin-block: 0.3rem;
 }
 
 .form-button {
-    margin-top: 1.5rem;
+    margin-top: 2rem;
 }
 
 .form {

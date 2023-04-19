@@ -1,5 +1,5 @@
 // Mui
-import { Divider } from '@mui/material';
+import { Divider, Typography } from '@mui/material';
 
 // Font
 import localFont from 'next/font/local';
@@ -7,8 +7,10 @@ const alkatra = localFont({ src: '../assets/alkatra-VariableFont_wght.ttf' });
 
 export default function Title({ children }) {
     return (
-        <div style={{ marginBottom: '1rem' }}>
-            <h2 className={alkatra.className}>{children}</h2>
+        <div className='title'>
+            <Typography variant='h4' className={alkatra.className}>
+                {children}
+            </Typography>
             <Divider variant='middle' />
         </div>
     );
