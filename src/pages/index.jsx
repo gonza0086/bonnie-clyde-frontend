@@ -1,29 +1,41 @@
+// Components
+import Title from '@/components/Title';
+
+// Mui
 import { Button, TextField } from '@mui/material';
+
+// Styles
+import styles from './styles/Home.module.css';
 
 export default function Home() {
     return (
-        <div
-            style={{
-                border: 'solid 1px black',
-                width: '20vw',
-                paddingBlock: '1em',
-                paddingInline: '2em',
-                margin: '10vh auto',
-                textAlign: 'center',
-            }}
-        >
-            <h3>Bonnie & Clyde</h3>
-            <div style={{ paddingBlock: '0.7em' }} />
-            <form>
-                <TextField id='username' label='Username' variant='outlined' fullWidth />
-                <div style={{ paddingBlock: '0.3em' }} />
-                <TextField id='email' label='Email' variant='outlined' fullWidth />
-                <div style={{ paddingBlock: '0.3em' }} />
-                <TextField id='password' label='Password' variant='outlined' type='password' fullWidth />
-                <div style={{ paddingBlock: '0.3em' }} />
-                <TextField id='repeat-password' label='Repeat password' variant='outlined' type='password' fullWidth />
-                <div style={{ paddingBlock: '1em' }} />
-                <Button variant='contained' color='secondary'>
+        <div className={styles['form-container']}>
+            <form className='form'>
+                <Title>Register</Title>
+                <TextField id='username' className='text-input' color='secondary' label='Username' variant='outlined' fullWidth />
+                <TextField id='email' className='text-input' color='secondary' label='Email' variant='outlined' fullWidth />
+
+                <TextField
+                    id='password'
+                    className='text-input'
+                    color='secondary'
+                    label='Password'
+                    variant='outlined'
+                    type='password'
+                    fullWidth
+                />
+
+                <TextField
+                    id='repeat-password'
+                    className='text-input'
+                    color='secondary'
+                    label='Repeat password'
+                    variant='outlined'
+                    type='password'
+                    fullWidth
+                />
+
+                <Button className='form-button' variant='contained' color='secondary'>
                     Signup
                 </Button>
             </form>

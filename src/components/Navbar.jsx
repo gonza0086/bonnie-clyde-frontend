@@ -1,4 +1,4 @@
-// MUI
+// Mui
 import { AppBar, Button, Toolbar } from '@mui/material';
 
 export default function Navbar() {

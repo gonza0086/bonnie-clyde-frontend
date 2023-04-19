@@ -1,0 +1,8 @@
+.form-container {
+    width: fit-content;
+    padding-block: 1em;
+    padding-inline: 2em;
+    margin: 10vh auto;
+    text-align: center;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+}
