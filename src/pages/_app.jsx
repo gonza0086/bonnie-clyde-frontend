@@ -1,12 +1,12 @@
 // Components
 import Head from 'next/head';
+import { Navbar, Footer } from '@/components/index';
 
 // Contexts
 import ThemeContext from '@/contexts/ThemeContext';
 
 // Styles
 import '@/styles/globals.css';
-import Navbar from '@/components/Navbar';
 
 export default function App({ Component, pageProps }) {
     return (
@@ -21,6 +21,7 @@ export default function App({ Component, pageProps }) {
             <ThemeContext>
                 <Navbar />
                 <Component {...pageProps} />
+                <Footer />
             </ThemeContext>
         </>
     );

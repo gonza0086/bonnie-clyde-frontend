@@ -24,6 +24,21 @@ body {
     background-color: var(--background-color);
 }
 
+p,
+h1,
+h2,
+h3 {
+    color: var(--foreground-color);
+}
+
+.footer {
+    background-color: var(--detail-color);
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    width: 100vw;
+}
+
 .text-input {
     margin-block: 0.3rem;
 }
