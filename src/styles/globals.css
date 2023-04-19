@@ -31,6 +31,17 @@ h3 {
     color: var(--foreground-color);
 }
 
+.navbar {
+    padding-left: 0.5vw;
+    justify-content: space-between;
+}
+
+.navbar-logo-container {
+    position: relative;
+    width: 8vw;
+    height: 6vh;
+}
+
 .footer {
     background-color: var(--detail-color);
     position: absolute;

@@ -3,7 +3,7 @@ import { Divider } from '@mui/material';
 
 // Font
 import localFont from 'next/font/local';
-const alkatra = localFont({ src: '../assets/Alkatra-VariableFont_wght.ttf' });
+const alkatra = localFont({ src: '../assets/alkatra-VariableFont_wght.ttf' });
 
 export default function Title({ children }) {
     return (
