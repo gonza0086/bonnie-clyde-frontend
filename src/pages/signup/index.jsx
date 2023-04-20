@@ -17,7 +17,6 @@ export default function Signup() {
     });
 
     const isDisabled = () => {
-        console.log(isValid);
         return Object.values(isValid).includes(false);
     };
 
@@ -25,7 +24,7 @@ export default function Signup() {
         <div className={styles['form-container']}>
             <form className='form'>
                 <Title>Bonnie & Clyde</Title>
-                <FormInput id='username' validation={setIsValid} />
+                <FormInput id='email' validation={setIsValid} type='email' />
                 <Button className='form-button' variant='contained' color='secondary' disabled={isDisabled()}>
                     Signup
                 </Button>
