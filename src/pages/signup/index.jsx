@@ -24,7 +24,9 @@ export default function Signup() {
         <div className={styles['form-container']}>
             <form className='form'>
                 <Title>Bonnie & Clyde</Title>
-                <FormInput id='email' validation={setIsValid} type='email' />
+                <FormInput id='username' type='text' />
+                <FormInput id='email' type='email' />
+                <FormInput id='password' type='password' />
                 <Button className='form-button' variant='contained' color='secondary' disabled={isDisabled()}>
                     Signup
                 </Button>

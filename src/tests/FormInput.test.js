@@ -42,3 +42,16 @@ test('error message appears when email input dont have an email', async () => {
     fireEvent.blur(emailInput);
     expect(screen.queryByText('email is empty!')).toBeNull();
 });
+
+test('password input is shown after clicking the show button', async () => {
+    render(<FormInput id='password' type='password' />);
+
+    const passInput = screen.getByLabelText('Password');
+    const showButton = screen.getByRole('button');
+
+    await userEvent.type(passInput, 'pass123');
+    expect(screen.queryByRole('textbox', { value: 'pass123' })).toBeNull();
+
+    await userEvent.click(showButton);
+    expect(screen.getByRole('textbox', { value: 'pass123' }));
+});

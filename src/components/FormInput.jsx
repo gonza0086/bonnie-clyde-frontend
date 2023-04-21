@@ -1,5 +1,10 @@
-import { TextField } from '@mui/material';
+// Hooks
 import { useState } from 'react';
+
+// Mui
+import { IconButton, InputAdornment, TextField } from '@mui/material';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 // Styles
 const styles = {
@@ -9,13 +14,22 @@ const styles = {
 export default function FormInput({ id, required, type = 'text' }) {
     const [inputValue, setInputValue] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [isInitialState, setIsInitialState] = useState(true);
     const [valueIsValid, setValueIsValid] = useState(!required);
     const label = id.charAt(0).toUpperCase() + id.slice(1);
 
-    const handleChange = event => {
-        setInputValue(event.target.value);
-        // validation(prevValue => ({ ...prevValue, [id]: isValid(event.target.value) }));
+    const handleChange = e => {
+        setInputValue(e.target.value);
+    };
+
+    const handleBlur = e => {
+        setIsInitialState(false);
+        isValid(e.target.value);
+    };
+
+    const handleShowPassword = () => {
+        setShowPassword(prevShowPassword => !prevShowPassword);
     };
 
     const isValid = value => {
@@ -36,15 +50,9 @@ export default function FormInput({ id, required, type = 'text' }) {
         }
     };
 
-    const handleBlur = e => {
-        setIsInitialState(false);
-        isValid(e.target.value);
-    };
-
     return (
         <TextField
             id={id}
-            type={type}
             label={label}
             value={inputValue}
             required={required}
@@ -52,11 +60,20 @@ export default function FormInput({ id, required, type = 'text' }) {
             onChange={handleChange}
             helperText={errorMessage}
             error={!isInitialState && !valueIsValid}
+            type={type === 'password' && !showPassword ? 'password' : 'text'}
             color='secondary'
-            variant='outlined'
             fullWidth
             inputProps={{
                 onBlur: handleBlur,
+            }}
+            InputProps={{
+                endAdornment: type === 'password' && (
+                    <InputAdornment position='end'>
+                        <IconButton onClick={handleShowPassword} edge='end'>
+                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                    </InputAdornment>
+                ),
             }}
         />
     );
