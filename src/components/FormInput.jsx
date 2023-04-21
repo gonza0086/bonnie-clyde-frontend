@@ -1,22 +1,32 @@
 import { TextField } from '@mui/material';
 import { useState } from 'react';
 
-export default function FormInput({ id, validation, required, type = 'text' }) {
+// Styles
+const styles = {
+    input: { marginBlock: '0.3rem' },
+};
+
+export default function FormInput({ id, required, type = 'text' }) {
     const [inputValue, setInputValue] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const [valueIsValid, setValueIsValid] = useState(false);
     const [isInitialState, setIsInitialState] = useState(true);
+    const [valueIsValid, setValueIsValid] = useState(!required);
+    const label = id.charAt(0).toUpperCase() + id.slice(1);
 
     const handleChange = event => {
         setInputValue(event.target.value);
-        setIsInitialState(false);
         // validation(prevValue => ({ ...prevValue, [id]: isValid(event.target.value) }));
     };
 
     const isValid = value => {
         if (value === '') {
-            setValueIsValid(false);
-            setErrorMessage(`${id} is empty!`);
+            if (required) {
+                setValueIsValid(false);
+                setErrorMessage(`${id} is empty!`);
+            } else {
+                setValueIsValid(true);
+                setErrorMessage('');
+            }
         } else if (type === 'text') {
             setValueIsValid(true);
             setErrorMessage('');
@@ -26,22 +36,28 @@ export default function FormInput({ id, validation, required, type = 'text' }) {
         }
     };
 
+    const handleBlur = e => {
+        setIsInitialState(false);
+        isValid(e.target.value);
+    };
+
     return (
         <TextField
             id={id}
+            type={type}
+            label={label}
             value={inputValue}
             required={required}
+            style={styles.input}
             onChange={handleChange}
-            inputProps={{
-                onBlur: event => isValid(event.target.value),
-            }}
             helperText={errorMessage}
             error={!isInitialState && !valueIsValid}
-            style={{ marginBlock: '0.3rem' }}
-            label={id.charAt(0).toUpperCase() + id.slice(1)}
             color='secondary'
             variant='outlined'
             fullWidth
+            inputProps={{
+                onBlur: handleBlur,
+            }}
         />
     );
 }

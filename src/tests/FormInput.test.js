@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { FormInput } from '@/components';
 
-test('error message appears when input is cleared', async () => {
+test('error message appears when required input is cleared', async () => {
     render(<FormInput id='username' required />);
 
     const usernameInput = screen.getByLabelText('Username *');
@@ -37,4 +37,8 @@ test('error message appears when email input dont have an email', async () => {
     await userEvent.type(emailInput, 'gonzalo@gmail.com');
     fireEvent.blur(emailInput);
     expect(screen.queryByText('that is not a valid email!')).toBeNull();
+
+    await userEvent.clear(emailInput);
+    fireEvent.blur(emailInput);
+    expect(screen.queryByText('email is empty!')).toBeNull();
 });

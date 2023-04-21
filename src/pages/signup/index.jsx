@@ -1,15 +1,15 @@
 // Components
 import Title from '@/components/Title';
+import { FormInput } from '@/components';
 
 // Hooks
 import { useState } from 'react';
 
 // Mui
-import { Button, TextField } from '@mui/material';
+import { Button } from '@mui/material';
 
 // Styles
 import styles from './Signup.module.css';
-import { FormInput } from '@/components';
 
 export default function Signup() {
     const [isValid, setIsValid] = useState({
