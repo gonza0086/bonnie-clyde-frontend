@@ -1,0 +1,51 @@
+// Components
+import FormInput from './FormInput';
+
+//  Hooks
+import { useState } from 'react';
+
+// Mui
+import { Button } from '@mui/material';
+
+export default function Form({ children }) {
+    const initializeValueObject = () => {
+        let initialIsValidObject = {};
+        let initialValueObject = {};
+
+        children.forEach(input => {
+            initialIsValidObject[input.props.id] = false;
+            initialValueObject[input.props.id] = '';
+        });
+
+        return { initialIsValidObject, initialValueObject };
+    };
+
+    const { initialValueObject, initialIsValidObject } = initializeValueObject();
+    const [values, setValues] = useState(initialValueObject);
+    const [isValid, setIsValid] = useState(initialIsValidObject);
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        console.log(values);
+    };
+
+    const handleValueUpdate = (id, newValue, isValueValid) => {
+        setValues({ ...values, [id]: newValue });
+        setIsValid({ ...isValid, [id]: isValueValid });
+    };
+
+    const isDisabled = () => {
+        return Object.values(isValid).includes(false);
+    };
+
+    return (
+        <form className='form' onSubmit={handleSubmit}>
+            {children.map(input => (
+                <FormInput key={input.props.id} {...input.props} updateValue={handleValueUpdate} />
+            ))}
+            <Button className='form-button' type='submit' variant='contained' color='secondary' disabled={isDisabled()}>
+                Signup
+            </Button>
+        </form>
+    );
+}

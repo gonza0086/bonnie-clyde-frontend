@@ -1,36 +1,20 @@
 // Components
 import Title from '@/components/Title';
-import { FormInput } from '@/components';
-
-// Hooks
-import { useState } from 'react';
-
-// Mui
-import { Button } from '@mui/material';
+import { Form, FormInput } from '@/components';
 
 // Styles
 import styles from './Signup.module.css';
 
 export default function Signup() {
-    const [isValid, setIsValid] = useState({
-        username: false,
-    });
-
-    const isDisabled = () => {
-        return Object.values(isValid).includes(false);
-    };
-
     return (
         <div className={styles['form-container']}>
-            <form className='form'>
-                <Title>Bonnie & Clyde</Title>
-                <FormInput id='username' type='text' />
-                <FormInput id='email' type='email' />
-                <FormInput id='password' type='password' />
-                <Button className='form-button' variant='contained' color='secondary' disabled={isDisabled()}>
-                    Signup
-                </Button>
-            </form>
+            <Title>Bonnie & Clyde</Title>
+            <Form>
+                <FormInput id='username' required />
+                <FormInput id='email' type='email' required />
+                <FormInput id='password' type='password' required />
+                <FormInput id='repeat-password' type='password' required />
+            </Form>
         </div>
     );
 }
