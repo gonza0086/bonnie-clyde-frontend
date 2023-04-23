@@ -4,13 +4,13 @@ import { cloneElement, useState } from 'react';
 // Mui
 import { Button } from '@mui/material';
 
-export default function Form({ children }) {
+export default function Form({ children, onSubmit }) {
     const initializeValueObject = () => {
         let initialIsValidObject = {};
         let initialValueObject = {};
 
         children.forEach(input => {
-            initialIsValidObject[input.props.id] = false;
+            initialIsValidObject[input.props.id] = input.props.required === undefined;
             initialValueObject[input.props.id] = '';
         });
 
@@ -23,7 +23,7 @@ export default function Form({ children }) {
 
     const handleSubmit = e => {
         e.preventDefault();
-        console.log(values);
+        onSubmit();
     };
 
     const handleValueUpdate = (id, newValue, isValueValid) => {

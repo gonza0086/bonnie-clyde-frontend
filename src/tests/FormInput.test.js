@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import { FormInput } from '@/components';
 
 test('error message appears when required input is cleared', async () => {
-    render(<FormInput id='username' required />);
+    render(<FormInput id='username' required updateValue={() => {}} />);
 
     const usernameInput = screen.getByLabelText('Username *');
 
@@ -20,7 +20,7 @@ test('error message appears when required input is cleared', async () => {
 });
 
 test('error message appears when email input dont have an email', async () => {
-    render(<FormInput id='email' type='email' />);
+    render(<FormInput id='email' type='email' updateValue={() => {}} />);
 
     const emailInput = screen.getByLabelText('Email');
 
@@ -44,7 +44,7 @@ test('error message appears when email input dont have an email', async () => {
 });
 
 test('password input is shown after clicking the show button', async () => {
-    render(<FormInput id='password' type='password' />);
+    render(<FormInput id='password' type='password' updateValue={() => {}} />);
 
     const passwordInput = screen.getByLabelText('Password');
     const showButton = screen.getByRole('button');
@@ -58,7 +58,7 @@ test('password input is shown after clicking the show button', async () => {
 });
 
 test('error message appears if password do not have a min length of 8, at least 1 capital letter and at least 1 number', async () => {
-    render(<FormInput id='password' type='password' />);
+    render(<FormInput id='password' type='password' updateValue={() => {}} />);
 
     const passwordInput = screen.getByLabelText('Password');
 

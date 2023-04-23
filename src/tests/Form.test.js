@@ -19,7 +19,7 @@ test('form button is disabled while required fields are not filled', async () =>
 
     await userEvent.type(usernameInput, 'Gonzalo');
     fireEvent.blur(usernameInput);
-    expect(formButton).toBeDisabled();
+    expect(formButton).not.toBeDisabled();
 
     await userEvent.type(emailInput, 'Gonzalo@gmailcom');
     fireEvent.blur(emailInput);
@@ -37,4 +37,27 @@ test('form button is disabled while required fields are not filled', async () =>
     await userEvent.type(usernameInput, 'Gonzalo');
     fireEvent.blur(usernameInput);
     expect(formButton).not.toBeDisabled();
+});
+
+test('onSubmit is called when submit button is clicked', async () => {
+    const onSubmit = jest.fn();
+    render(
+        <Form onSubmit={onSubmit}>
+            <FormInput id='username' required />
+            <FormInput id='password' type='password' required />
+        </Form>
+    );
+
+    const formButton = screen.getByRole('button', { name: 'Signup' });
+    const usernameInput = screen.getByLabelText('Username *');
+    const passwordInput = screen.getByLabelText('Password *');
+
+    await userEvent.type(usernameInput, 'Gonzalo');
+    fireEvent.blur(usernameInput);
+
+    await userEvent.type(passwordInput, 'Gonzalo360');
+    fireEvent.blur(passwordInput);
+
+    await userEvent.click(formButton);
+    expect(onSubmit).toHaveBeenCalledTimes(1);
 });
