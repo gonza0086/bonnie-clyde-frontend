@@ -20,19 +20,23 @@ export default function FormInput({ id, required, updateValue, type = 'text' }) 
     const label = id.charAt(0).toUpperCase() + id.slice(1);
 
     const handleChange = e => {
+        let { isValid } = handleIsValid(e.target.value);
         setInputValue(e.target.value);
-        isValid(e.target.value);
+        updateValue(id, e.target.value, isValid);
     };
 
-    const handleBlur = () => {
+    const handleBlur = e => {
+        let { isValid, message } = handleIsValid(e.target.value);
         setIsInitialState(false);
+        setValueIsValid(isValid);
+        setErrorMessage(message);
     };
 
     const handleShowPassword = () => {
         setShowPassword(prevShowPassword => !prevShowPassword);
     };
 
-    const isValid = value => {
+    const handleIsValid = value => {
         let isValid = true;
         let message = '';
 
@@ -57,9 +61,7 @@ export default function FormInput({ id, required, updateValue, type = 'text' }) 
             }
         }
 
-        setValueIsValid(isValid);
-        setErrorMessage(message);
-        updateValue(id, value, isValid);
+        return { isValid, message };
     };
 
     return (

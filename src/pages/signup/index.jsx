@@ -4,6 +4,7 @@ import { Form, FormInput } from '@/components';
 
 // Styles
 import styles from './Signup.module.css';
+import RevalidateInput from '@/components/RevalidateInput';
 
 export default function Signup() {
     return (
@@ -12,8 +13,9 @@ export default function Signup() {
             <Form>
                 <FormInput id='username' required />
                 <FormInput id='email' type='email' required />
-                <FormInput id='password' type='password' required />
-                <FormInput id='repeat-password' type='password' required />
+                <RevalidateInput id='repeat-password' type='password' required>
+                    <FormInput id='password' type='password' required />
+                </RevalidateInput>
             </Form>
         </div>
     );

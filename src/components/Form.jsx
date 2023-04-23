@@ -1,8 +1,5 @@
-// Components
-import FormInput from './FormInput';
-
 //  Hooks
-import { useState } from 'react';
+import { cloneElement, useState } from 'react';
 
 // Mui
 import { Button } from '@mui/material';
@@ -40,9 +37,7 @@ export default function Form({ children }) {
 
     return (
         <form className='form' onSubmit={handleSubmit}>
-            {children.map(input => (
-                <FormInput key={input.props.id} {...input.props} updateValue={handleValueUpdate} />
-            ))}
+            {children.map(input => cloneElement(input, { key: input.props.id, updateValue: handleValueUpdate }))}
             <Button className='form-button' type='submit' variant='contained' color='secondary' disabled={isDisabled()}>
                 Signup
             </Button>
