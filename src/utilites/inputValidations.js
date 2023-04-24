@@ -1,15 +1,3 @@
-export function validateRequired(value, id) {
-    let isValid = true;
-    let message = '';
-
-    if (value.length === 0) {
-        isValid = false;
-        message = `${id} is empty!`;
-    }
-
-    return { isValid, message };
-}
-
 export function validateText(value) {
     let isValid = true;
     let message = '';

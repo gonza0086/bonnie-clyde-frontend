@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 // Utils
-import { validateEmail, validatePassword, validateRequired, validateText } from '@/utilites/inputValidations';
+import { validateEmail, validatePassword, validateText } from '@/utilites/inputValidations';
 
 // Mui
 import { IconButton, InputAdornment, TextField, Tooltip } from '@mui/material';
