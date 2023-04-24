@@ -1,6 +1,6 @@
 // Components
 import Title from '@/components/Title';
-import { Form, FormInput } from '@/components';
+import { Form, Input, PasswordInput } from '@/components';
 
 // Styles
 import styles from './Signup.module.css';
@@ -11,10 +11,10 @@ export default function Signup() {
         <div className={styles['form-container']}>
             <Title>Bonnie & Clyde</Title>
             <Form>
-                <FormInput id='username' required />
-                <FormInput id='email' type='email' required />
+                <Input id='username' required />
+                <Input id='email' type='email' required />
                 <RevalidateInput id='repeat-password' type='password' required>
-                    <FormInput id='password' type='password' required />
+                    <PasswordInput id='password' type='password' required helper />
                 </RevalidateInput>
             </Form>
         </div>

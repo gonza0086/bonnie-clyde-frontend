@@ -1,11 +1,30 @@
-export function validateText(value) {
+const VALIDATOR = {
+    text: validateText,
+    email: validateEmail,
+    password: validatePassword,
+};
+
+export function validateInput(value, type, required) {
+    const validator = VALIDATOR[type];
+    let validation = { isValid: true, message: '' };
+
+    if (value !== '') {
+        validation = validator(value);
+    } else if (required) {
+        validation = { isValid: false, message: 'required input is empty!' };
+    }
+
+    return validation;
+}
+
+function validateText() {
     let isValid = true;
     let message = '';
 
     return { isValid, message };
 }
 
-export function validateEmail(value) {
+function validateEmail(value) {
     let isValid = true;
     let message = '';
 
@@ -17,7 +36,7 @@ export function validateEmail(value) {
     return { isValid, message };
 }
 
-export function validatePassword(value) {
+function validatePassword(value) {
     let isValid = true;
     let message = '';
 

@@ -1,13 +1,13 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-import { Form, FormInput } from '@/components';
+import { Form, Input } from '@/components';
 
 test('form button is disabled while required fields are not filled', async () => {
     render(
         <Form>
-            <FormInput id='username' required />
-            <FormInput id='email' type='email' />
+            <Input id='username' required />
+            <Input id='email' type='email' />
         </Form>
     );
 
@@ -43,8 +43,8 @@ test('onSubmit is called when submit button is clicked', async () => {
     const onSubmit = jest.fn();
     render(
         <Form onSubmit={onSubmit}>
-            <FormInput id='username' required />
-            <FormInput id='password' type='password' required />
+            <Input id='username' required />
+            <Input id='password' type='password' required />
         </Form>
     );
 
