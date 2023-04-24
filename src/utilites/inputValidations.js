@@ -48,13 +48,13 @@ function validatePassword(value) {
     return { isValid, message };
 }
 
-export function revalidateValue(value, id, revalidate, revalidateId) {
+export function revalidateValue(id, value, revalidate) {
     let isValid = true;
     let message = '';
 
     if (value !== revalidate) {
         isValid = false;
-        message = `${id} does not match ${revalidateId}!`;
+        message = `repeat-${id} does not match ${id}!`;
     }
 
     return { isValid, message };

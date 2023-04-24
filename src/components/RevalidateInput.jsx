@@ -1,6 +1,9 @@
 // Hooks
 import { cloneElement, useState } from 'react';
 
+// Utils
+import { revalidateValue } from '@/utilites/inputValidations';
+
 // Mui
 import { IconButton, InputAdornment, TextField, Tooltip } from '@mui/material';
 import { grey } from '@mui/material/colors';
@@ -11,23 +14,26 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 // Styles
 import styles from '../styles/FormInput.module.css';
 
-export default function RevalidateInput({ children, id, required, updateValue, type = 'text' }) {
+export default function RevalidateInput({ children, updateValue }) {
+    const id = `repeat-${children.props.id}`;
+    const label = `Repeat ${children.props.id}`;
+
     const [inputValue, setInputValue] = useState('');
-    const [revalidateValue, setRevalidateValue] = useState('');
+    const [revalidateInputValue, setRevalidateInputValue] = useState('');
+
     const [showPassword, setShowPassword] = useState(false);
     const [isInitialState, setIsInitialState] = useState(true);
-    const [valueIsValid, setValueIsValid] = useState(!required);
+    const [valueIsValid, setValueIsValid] = useState(!children.props.required);
     const [errorMessage, setErrorMessage] = useState(`${id} does not match ${children.props.id}!`);
-    const label = (id.charAt(0).toUpperCase() + id.slice(1)).replace('-', ' ');
 
     const handleChange = e => {
         let { isValid } = handleIsValid(e.target.value);
-        setInputValue(e.target.value);
+        setRevalidateInputValue(e.target.value);
         updateValue(id, e.target.value, isValid);
     };
 
     const handleBlur = e => {
-        let { isValid, message } = handleIsValid(e.target.value, revalidateValue);
+        let { isValid, message } = handleIsValid(e.target.value, inputValue);
         setIsInitialState(false);
         setValueIsValid(isValid);
         setErrorMessage(message);
@@ -38,26 +44,16 @@ export default function RevalidateInput({ children, id, required, updateValue, t
     };
 
     const handleIsValid = (value, revalidate) => {
-        let isValid = true;
-        let message = '';
-        if (value === revalidate) {
-            isValid = true;
-            message = '';
-        } else {
-            isValid = false;
-            message = `${id} does not match ${children.props.id}!`;
-        }
-
-        return { isValid, message };
+        return revalidateValue(children.props.id, value, revalidate);
     };
 
     const handleValueUpdate = (id, newValue, isValueValid) => {
-        let { isValid, message } = handleIsValid(inputValue, newValue);
+        let { isValid, message } = handleIsValid(revalidateInputValue, newValue);
         setValueIsValid(isValid);
         setErrorMessage(message);
-        updateValue(id, newValue, isValueValid);
-        setRevalidateValue(newValue);
-        updateValue(`repeat-${id}`, inputValue, valueIsValid);
+        setInputValue(newValue);
+        updateValue(children.props.id, newValue, isValueValid);
+        updateValue(id, revalidateInputValue, isValid);
     };
 
     return (
@@ -65,13 +61,13 @@ export default function RevalidateInput({ children, id, required, updateValue, t
             {cloneElement(children, { updateValue: handleValueUpdate })}
             <div className={styles.inputContainer}>
                 <TextField
-                    id={id}
+                    id={`repeat-${children.props.id}`}
                     label={label}
-                    value={inputValue}
-                    required={required}
+                    value={revalidateInputValue}
+                    required={children.props.required}
                     onChange={handleChange}
                     className={styles.input}
-                    type={showPassword ? 'text' : type}
+                    type={showPassword ? 'text' : children.props.type}
                     error={!isInitialState && !valueIsValid}
                     helperText={!isInitialState && errorMessage}
                     color='secondary'
@@ -80,7 +76,7 @@ export default function RevalidateInput({ children, id, required, updateValue, t
                         onBlur: handleBlur,
                     }}
                     InputProps={{
-                        endAdornment: type === 'password' && (
+                        endAdornment: children.props.type === 'password' && (
                             <InputAdornment position='end'>
                                 <IconButton onClick={handleShowPassword} edge='end'>
                                     {showPassword ? <VisibilityOff /> : <Visibility />}
@@ -89,7 +85,7 @@ export default function RevalidateInput({ children, id, required, updateValue, t
                         ),
                     }}
                 />
-                {type === 'password' && (
+                {children.props.helper && children.props.type === 'password' && (
                     <Tooltip
                         title={
                             <div className={styles.tooltip}>

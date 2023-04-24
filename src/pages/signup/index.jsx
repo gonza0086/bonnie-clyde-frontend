@@ -13,7 +13,7 @@ export default function Signup() {
             <Form>
                 <Input id='username' required />
                 <Input id='email' type='email' required />
-                <RevalidateInput id='repeat-password' type='password' required>
+                <RevalidateInput>
                     <PasswordInput id='password' type='password' required helper />
                 </RevalidateInput>
             </Form>

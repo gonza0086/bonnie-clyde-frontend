@@ -92,10 +92,10 @@ describe('<PasswordInput />', () => {
 });
 
 describe('<RevalidatePassword />', () => {
-    test('error messaage appears when repeat-password value does not match pasword value', async () => {
+    test('error messaage appears when repeat-password value does not match the pasword value', async () => {
         render(
-            <RevalidateInput id='repeat-password' type='password' required updateValue={() => {}}>
-                <PasswordInput id='password' required updateValue={() => {}} />
+            <RevalidateInput updateValue={() => {}}>
+                <PasswordInput id='password' type='password' required />
             </RevalidateInput>
         );
 
@@ -123,5 +123,38 @@ describe('<RevalidatePassword />', () => {
         await userEvent.type(passwordInput, 'Gonzalo360');
         fireEvent.blur(passwordInput);
         expect(screen.queryByText('repeat-password does not match password!')).toBeNull();
+    });
+
+    test('error messaage appears when repeat-email value does not match the email value', async () => {
+        render(
+            <RevalidateInput updateValue={() => {}}>
+                <Input id='email' type='email' required />
+            </RevalidateInput>
+        );
+
+        const emailInput = screen.getByLabelText('Email *');
+        const repeatEmailInput = screen.getByLabelText('Repeat email *');
+
+        await userEvent.type(emailInput, 'gonzalo@gmail.com');
+        fireEvent.blur(emailInput);
+
+        await userEvent.type(repeatEmailInput, 'gonzalo@hotmail.com');
+        fireEvent.blur(repeatEmailInput);
+        expect(screen.getByText('repeat-email does not match email!'));
+
+        await userEvent.clear(repeatEmailInput);
+        await userEvent.type(repeatEmailInput, 'gonzalo@gmail.com');
+        fireEvent.blur(repeatEmailInput);
+        expect(screen.queryByText('repeat-email does not match email!')).toBeNull();
+
+        await userEvent.clear(emailInput);
+        await userEvent.type(emailInput, 'gonza@gmail.com');
+        fireEvent.blur(emailInput);
+        expect(screen.getByText('repeat-email does not match email!'));
+
+        await userEvent.clear(emailInput);
+        await userEvent.type(emailInput, 'gonzalo@gmail.com');
+        fireEvent.blur(emailInput);
+        expect(screen.queryByText('repeat-email does not match email!')).toBeNull();
     });
 });

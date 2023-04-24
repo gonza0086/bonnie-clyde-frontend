@@ -15,7 +15,7 @@ export default function Input({ id, required, updateValue, type = 'text', inputP
     const [errorMessage, setErrorMessage] = useState('');
     const [isInitialState, setIsInitialState] = useState(true);
     const [valueIsValid, setValueIsValid] = useState(!required);
-    const label = id.charAt(0).toUpperCase() + id.slice(1);
+    const label = (id.charAt(0).toUpperCase() + id.slice(1)).replace('-', ' ');
 
     const handleChange = e => {
         let { isValid } = handleIsValid(e.target.value);
