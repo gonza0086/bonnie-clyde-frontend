@@ -1,6 +1,9 @@
 // Hooks
 import { useState } from 'react';
 
+// Utils
+import { validateEmail, validatePassword, validateRequired, validateText } from '@/utilites/inputValidations';
+
 // Mui
 import { IconButton, InputAdornment, TextField, Tooltip } from '@mui/material';
 import { grey } from '@mui/material/colors';
@@ -11,13 +14,21 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 // Styles
 import styles from '../styles/FormInput.module.css';
 
+// Objects
+const VALIDATOR = {
+    text: validateText,
+    email: validateEmail,
+    password: validatePassword,
+};
+
 export default function FormInput({ id, required, updateValue, type = 'text' }) {
     const [inputValue, setInputValue] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [isInitialState, setIsInitialState] = useState(true);
     const [valueIsValid, setValueIsValid] = useState(!required);
-    const [errorMessage, setErrorMessage] = useState(required ? `${id} is empty!` : '');
+    const [errorMessage, setErrorMessage] = useState('');
     const label = id.charAt(0).toUpperCase() + id.slice(1);
+    const validator = VALIDATOR[type];
 
     const handleChange = e => {
         let { isValid } = handleIsValid(e.target.value);
@@ -37,31 +48,15 @@ export default function FormInput({ id, required, updateValue, type = 'text' }) 
     };
 
     const handleIsValid = value => {
-        let isValid = true;
-        let message = '';
+        let validation = { isValid: true, message: '' };
 
-        if (value === '') {
-            if (required) {
-                isValid = false;
-                message = `${id} is empty!`;
-            }
-        } else if (type === 'text') {
-            isValid = true;
-            message = '';
-        } else if (type === 'email') {
-            isValid = value.match(/.+@\w+(\.com)$/g) !== null;
-            message = value.match(/.+@\w+(\.com)$/g) !== null ? '' : 'that is not a valid email!';
-        } else if (type === 'password') {
-            if (value.length < 8 || !/[A-Z]/.test(value) || !/[a-z]/.test(value) || !/\d/.test(value)) {
-                isValid = false;
-                message = 'password is not valid!';
-            } else {
-                isValid = true;
-                message = '';
-            }
+        if (value !== '') {
+            validation = validator(value);
+        } else if (required) {
+            validation = { isValid: false, message: `${id} is empty!` };
         }
 
-        return { isValid, message };
+        return validation;
     };
 
     return (
