@@ -14,10 +14,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 // Styles
 import styles from '../styles/FormInput.module.css';
 
-export default function RevalidateInput({ children, updateValue }) {
-    const id = `repeat-${children.props.id}`;
-    const label = `Repeat ${children.props.id}`;
-
+export default function RevalidateInput({ id, children, updateValue }) {
     const [inputValue, setInputValue] = useState('');
     const [revalidateInputValue, setRevalidateInputValue] = useState('');
 
@@ -25,15 +22,16 @@ export default function RevalidateInput({ children, updateValue }) {
     const [isInitialState, setIsInitialState] = useState(true);
     const [valueIsValid, setValueIsValid] = useState(!children.props.required);
     const [errorMessage, setErrorMessage] = useState(`${id} does not match ${children.props.id}!`);
+    const label = `Repeat ${children.props.id}`;
 
     const handleChange = e => {
-        let { isValid } = handleIsValid(e.target.value);
+        let { isValid } = handleIsValid(inputValue, e.target.value);
         setRevalidateInputValue(e.target.value);
         updateValue(id, e.target.value, isValid);
     };
 
     const handleBlur = e => {
-        let { isValid, message } = handleIsValid(e.target.value, inputValue);
+        let { isValid, message } = handleIsValid(inputValue, e.target.value);
         setIsInitialState(false);
         setValueIsValid(isValid);
         setErrorMessage(message);
@@ -52,8 +50,8 @@ export default function RevalidateInput({ children, updateValue }) {
         setValueIsValid(isValid);
         setErrorMessage(message);
         setInputValue(newValue);
-        updateValue(children.props.id, newValue, isValueValid);
-        updateValue(id, revalidateInputValue, isValid);
+        updateValue(id, newValue, isValueValid);
+        updateValue(`repeat-${id}`, revalidateInputValue, isValid);
     };
 
     return (
@@ -61,7 +59,7 @@ export default function RevalidateInput({ children, updateValue }) {
             {cloneElement(children, { updateValue: handleValueUpdate })}
             <div className={styles.inputContainer}>
                 <TextField
-                    id={`repeat-${children.props.id}`}
+                    id={id}
                     label={label}
                     value={revalidateInputValue}
                     required={children.props.required}

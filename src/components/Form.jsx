@@ -23,12 +23,12 @@ export default function Form({ children, onSubmit }) {
 
     const handleSubmit = e => {
         e.preventDefault();
-        onSubmit();
+        onSubmit(values);
     };
 
     const handleValueUpdate = (id, newValue, isValueValid) => {
-        setValues({ ...values, [id]: newValue });
-        setIsValid({ ...isValid, [id]: isValueValid });
+        setValues(prevValues => ({ ...prevValues, [id]: newValue }));
+        setIsValid(prevIsValid => ({ ...prevIsValid, [id]: isValueValid }));
     };
 
     const isDisabled = () => {
