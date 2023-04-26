@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-import { Form, Input, PasswordInput, RevalidateInput } from '@/components';
+import { Form, Input, PasswordInput, RevalidationInput } from '@/components';
 
 test('form button is disabled while required fields are not filled', async () => {
     render(
@@ -45,9 +45,9 @@ test('onSubmit is called when submit button is clicked and send all the input va
         <Form onSubmit={onSubmit}>
             <Input id='username' required />
             <Input id='email' type='email' required />
-            <RevalidateInput id='repeat-password'>
-                <PasswordInput id='password' type='password' required />
-            </RevalidateInput>
+            <RevalidationInput id='password' revalidateId='repeat-password' type='password' required>
+                <PasswordInput />
+            </RevalidationInput>
         </Form>
     );
 

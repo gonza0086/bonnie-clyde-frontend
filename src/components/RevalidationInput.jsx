@@ -14,20 +14,21 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 // Styles
 import styles from '../styles/FormInput.module.css';
 
-export default function RevalidateInput({ id, children, updateValue }) {
+export default function RevalidationInput({ id, children, updateValue, type, required }) {
+    const revalidateId = `repeat-${id}`;
+    const label = `Repeat ${id}`;
     const [inputValue, setInputValue] = useState('');
     const [revalidateInputValue, setRevalidateInputValue] = useState('');
 
     const [showPassword, setShowPassword] = useState(false);
     const [isInitialState, setIsInitialState] = useState(true);
-    const [valueIsValid, setValueIsValid] = useState(!children.props.required);
-    const [errorMessage, setErrorMessage] = useState(`${id} does not match ${children.props.id}!`);
-    const label = `Repeat ${children.props.id}`;
+    const [valueIsValid, setValueIsValid] = useState(!required);
+    const [errorMessage, setErrorMessage] = useState(`${revalidateId} does not match ${id}!`);
 
     const handleChange = e => {
         let { isValid } = handleIsValid(inputValue, e.target.value);
         setRevalidateInputValue(e.target.value);
-        updateValue(id, e.target.value, isValid);
+        updateValue(revalidateId, e.target.value, isValid);
     };
 
     const handleBlur = e => {
@@ -42,7 +43,7 @@ export default function RevalidateInput({ id, children, updateValue }) {
     };
 
     const handleIsValid = (value, revalidate) => {
-        return revalidateValue(children.props.id, value, revalidate);
+        return revalidateValue(id, value, revalidate);
     };
 
     const handleValueUpdate = (id, newValue, isValueValid) => {
@@ -51,21 +52,21 @@ export default function RevalidateInput({ id, children, updateValue }) {
         setErrorMessage(message);
         setInputValue(newValue);
         updateValue(id, newValue, isValueValid);
-        updateValue(`repeat-${id}`, revalidateInputValue, isValid);
+        updateValue(revalidateId, revalidateInputValue, isValid);
     };
 
     return (
         <>
-            {cloneElement(children, { updateValue: handleValueUpdate })}
+            {cloneElement(children, { id, required, type, updateValue: handleValueUpdate })}
             <div className={styles.inputContainer}>
                 <TextField
-                    id={id}
+                    id={revalidateId}
                     label={label}
                     value={revalidateInputValue}
-                    required={children.props.required}
+                    required={required}
                     onChange={handleChange}
                     className={styles.input}
-                    type={showPassword ? 'text' : children.props.type}
+                    type={showPassword ? 'text' : type}
                     error={!isInitialState && !valueIsValid}
                     helperText={!isInitialState && errorMessage}
                     color='secondary'
@@ -74,7 +75,7 @@ export default function RevalidateInput({ id, children, updateValue }) {
                         onBlur: handleBlur,
                     }}
                     InputProps={{
-                        endAdornment: children.props.type === 'password' && (
+                        endAdornment: type === 'password' && (
                             <InputAdornment position='end'>
                                 <IconButton onClick={handleShowPassword} edge='end'>
                                     {showPassword ? <VisibilityOff /> : <Visibility />}
@@ -83,7 +84,7 @@ export default function RevalidateInput({ id, children, updateValue }) {
                         ),
                     }}
                 />
-                {children.props.helper && children.props.type === 'password' && (
+                {children.props.helper && type === 'password' && (
                     <Tooltip
                         title={
                             <div className={styles.tooltip}>

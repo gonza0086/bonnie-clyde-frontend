@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-import { Input, PasswordInput, RevalidateInput } from '@/components';
+import { Input, PasswordInput, RevalidationInput } from '@/components';
 
 describe('<Input />', () => {
     test('error message appears when required input is cleared', async () => {
@@ -91,12 +91,12 @@ describe('<PasswordInput />', () => {
     });
 });
 
-describe('<RevalidatePassword />', () => {
+describe('<RevalidationPassword />', () => {
     test('error messaage appears when repeat-password value does not match the pasword value', async () => {
         render(
-            <RevalidateInput updateValue={() => {}}>
-                <PasswordInput id='password' type='password' required />
-            </RevalidateInput>
+            <RevalidationInput id='password' type='password' required updateValue={() => {}}>
+                <PasswordInput />
+            </RevalidationInput>
         );
 
         const passwordInput = screen.getByLabelText('Password *');
@@ -127,9 +127,9 @@ describe('<RevalidatePassword />', () => {
 
     test('error messaage appears when repeat-email value does not match the email value', async () => {
         render(
-            <RevalidateInput updateValue={() => {}}>
-                <Input id='email' type='email' required />
-            </RevalidateInput>
+            <RevalidationInput id='email' type='email' required updateValue={() => {}}>
+                <Input />
+            </RevalidationInput>
         );
 
         const emailInput = screen.getByLabelText('Email *');
