@@ -3,11 +3,15 @@ import Title from '@/components/Title';
 import { Form, Input, PasswordInput, RevalidationInput } from '@/components';
 
 // Styles
-import styles from './Signup.module.css';
+import styles from './styles/Signup.module.css';
+import { useRouter } from 'next/router';
 
 export default function Signup() {
+    const router = useRouter();
+
     const handleSubmit = values => {
         console.log(values);
+        router.push('/partner-finder');
     };
 
     return (
