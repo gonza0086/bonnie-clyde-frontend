@@ -1,10 +1,13 @@
 // Components
 import Title from '@/components/Title';
-import { Form, Input, PasswordInput, RevalidationInput } from '@/components';
+import RevalidationInput from './components/RevalidationInput';
+import { Form, Input, PasswordInput } from '@/components';
+
+// Next
+import { useRouter } from 'next/router';
 
 // Styles
 import styles from './styles/Signup.module.css';
-import { useRouter } from 'next/router';
 
 export default function Signup() {
     const router = useRouter();

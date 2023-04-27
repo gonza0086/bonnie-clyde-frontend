@@ -1,6 +1,6 @@
 // Components
 import Head from 'next/head';
-import { Navbar, Footer } from '@/components/index';
+import { Navbar, Footer } from './components/barrels';
 
 // Contexts
 import ThemeContext from '@/contexts/ThemeContext';

@@ -1,7 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-import { Input, PasswordInput, RevalidationInput } from '@/components';
+import { Input, PasswordInput } from '@/components';
+import RevalidationInput from '@/pages/signup/components/RevalidationInput';
 
 describe('<Input />', () => {
     test('error message appears when required input is cleared', async () => {

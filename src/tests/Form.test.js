@@ -1,7 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-import { Form, Input, PasswordInput, RevalidationInput } from '@/components';
+import { Form, Input, PasswordInput } from '@/components';
+import RevalidationInput from '@/pages/signup/components/RevalidationInput';
 
 test('form button is disabled while required fields are not filled', async () => {
     render(
