@@ -12,7 +12,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 // Styles
-import styles from '../styles/FormInput.module.css';
+import styles from '@/styles/FormInput.module.css';
 
 export default function RevalidationInput({ id, children, updateValue, type, required }) {
     const revalidateId = `repeat-${id}`;
