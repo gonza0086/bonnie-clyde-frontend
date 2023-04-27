@@ -8,7 +8,7 @@ import { validateInput } from '@/utilites/inputValidations';
 import { TextField } from '@mui/material';
 
 // Styles
-import styles from '../styles/FormInput.module.css';
+import styles from '../styles/Input.module.css';
 
 export default function Input({ id, required, updateValue, type = 'text', inputProps, showPassword }) {
     const [inputValue, setInputValue] = useState('');

@@ -3,6 +3,7 @@ import { cloneElement, useState } from 'react';
 
 // Mui
 import { Button } from '@mui/material';
+import Title from './Title';
 
 export default function Form({ children, onSubmit }) {
     const initializeValueObject = () => {
@@ -36,11 +37,14 @@ export default function Form({ children, onSubmit }) {
     };
 
     return (
-        <form className='form' onSubmit={handleSubmit}>
-            {children.map(input => cloneElement(input, { key: input.props.id, updateValue: handleValueUpdate }))}
-            <Button className='form-button' type='submit' variant='contained' color='secondary' disabled={isDisabled()}>
-                Signup
-            </Button>
-        </form>
+        <>
+            <Title variant='middle'>Bonnie & Clyde</Title>
+            <form className='form' onSubmit={handleSubmit}>
+                {children.map(input => cloneElement(input, { key: input.props.id, updateValue: handleValueUpdate }))}
+                <Button className='form-button' type='submit' variant='contained' color='secondary' disabled={isDisabled()}>
+                    Signup
+                </Button>
+            </form>
+        </>
     );
 }

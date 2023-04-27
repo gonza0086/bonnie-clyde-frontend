@@ -37,6 +37,14 @@ h3 {
     color: var(--foreground-color);
 }
 
+.content {
+    padding: 1em;
+}
+
+.container {
+    background-color: white;
+}
+
 .navbar {
     padding-left: 0.5vw;
     justify-content: space-between;
