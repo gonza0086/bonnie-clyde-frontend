@@ -5,6 +5,12 @@
     --secondary-color: #ec407a;
     --detail-color: #f44336;
     --accent-color: #f1ff59;
+    --grey-200: #e7eeee;
+    --grey-400: #c5dbda;
+    --grey-500: #99b9b7;
+    --grey-600: #608684;
+    --grey-700: #335553;
+    --grey-700: #0a1a19;
 }
 
 * {
@@ -62,7 +68,7 @@ h3 {
     width: 20vw;
 }
 
-.floatin-container {
+.floating-container {
     width: fit-content;
     padding-block: 1em;
     padding-inline: 2em;
