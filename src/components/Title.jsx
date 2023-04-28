@@ -5,13 +5,13 @@ import { Divider, Typography } from '@mui/material';
 import localFont from 'next/font/local';
 const alkatra = localFont({ src: '../assets/alkatra-VariableFont_wght.ttf' });
 
-export default function Title({ children, variant }) {
+export default function Title({ children, tag = 'h4', variant }) {
     return (
-        <div className='title'>
-            <Typography variant='h4' className={alkatra.className}>
+        <div className={variant}>
+            <Typography variant={tag} className={alkatra.className}>
                 {children}
             </Typography>
-            <Divider variant={variant} />
+            {variant === 'title' && <Divider />}
         </div>
     );
 }

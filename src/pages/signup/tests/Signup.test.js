@@ -24,7 +24,7 @@ test('After completing the form and clicking the signup button the user gets red
     await userEvent.type(repeatPasswordInput, 'Password123');
     await userEvent.click(formButton);
 
-    expect(router.push).toHaveBeenCalledWith('/partner-finder');
+    expect(router.push).toHaveBeenCalledWith('/finder');
 });
 
 export function createMockRouter(router) {

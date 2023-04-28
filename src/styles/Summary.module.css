@@ -1,0 +1,10 @@
+.container {
+    width: fit-content;
+    margin-block: 1rem;
+}
+
+.button {
+    align-self: center;
+    width: 5vw;
+    height: 4vh;
+}

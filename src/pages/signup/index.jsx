@@ -11,7 +11,7 @@ export default function Signup() {
 
     const handleSubmit = values => {
         console.log(values);
-        router.push('/partner-finder');
+        router.push('/finder');
     };
 
     return (

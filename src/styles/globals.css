@@ -43,6 +43,9 @@ h3 {
 
 .container {
     background-color: white;
+    padding: 1em;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
 }
 
 .navbar {

@@ -8,7 +8,7 @@ import styles from '../styles/Searchbar.module.css';
 export default function Searchbar() {
     return (
         <div className={styles.searchInputContainer}>
-            <InputBase className={styles.input} placeholder='test' />
+            <InputBase className={styles.input} placeholder='Search' />
             <IconButton className={styles.button} type='button'>
                 <SearchIcon />
             </IconButton>
