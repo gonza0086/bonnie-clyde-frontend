@@ -1,14 +1,14 @@
 // Components
-import { green } from '@mui/material/colors';
 import Title from './Title';
 
 // Mui
 import { Avatar, Button, Stack, Typography } from '@mui/material';
+import { green } from '@mui/material/colors';
 
 // Styles
 import styles from '@/styles/Summary.module.css';
 
-export default function Summary() {
+export default function ProfileSummary() {
     return (
         <Stack direction='row' gap={2} className={styles.container}>
             <Avatar sx={{ bgcolor: green[500], width: 60, height: 60 }}>G</Avatar>
