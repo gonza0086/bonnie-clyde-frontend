@@ -20,7 +20,9 @@ export default function App({ Component, pageProps }) {
 
             <ThemeContext>
                 <Navbar />
-                <Component {...pageProps} />
+                <div className='content'>
+                    <Component {...pageProps} />
+                </div>
                 <Footer />
             </ThemeContext>
         </>

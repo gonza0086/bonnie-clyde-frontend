@@ -9,7 +9,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 // Styles
-import styles from '../styles/FormInput.module.css';
+import styles from '../styles/Input.module.css';
 import Input from './Input';
 
 export default function PasswordInput({ id, required, helper, updateValue }) {

@@ -5,6 +5,12 @@
     --secondary-color: #ec407a;
     --detail-color: #f44336;
     --accent-color: #f1ff59;
+    --grey-200: #e7eeee;
+    --grey-400: #c5dbda;
+    --grey-500: #99b9b7;
+    --grey-600: #608684;
+    --grey-700: #335553;
+    --grey-700: #0a1a19;
 }
 
 * {
@@ -29,6 +35,17 @@ h1,
 h2,
 h3 {
     color: var(--foreground-color);
+}
+
+.content {
+    padding: 1em;
+}
+
+.container {
+    background-color: white;
+    padding: 1em;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
 }
 
 .navbar {
@@ -60,4 +77,13 @@ h3 {
 
 .form {
     width: 20vw;
+}
+
+.floating-container {
+    width: fit-content;
+    padding-block: 1em;
+    padding-inline: 2em;
+    margin: 10vh auto;
+    text-align: center;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
 }
