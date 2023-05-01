@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import Signup from '../index.jsx';
 import { RouterContext } from 'next/dist/shared/lib/router-context.js';
+import { createMockRouter } from '@/utilites/tests/createMockRouter.js';
 
 test('After completing the form and clicking the signup button the user gets redirect to partner-finder', async () => {
     const router = createMockRouter();
@@ -26,31 +27,3 @@ test('After completing the form and clicking the signup button the user gets red
 
     expect(router.push).toHaveBeenCalledWith('/finder');
 });
-
-export function createMockRouter(router) {
-    return {
-        basePath: '',
-        pathname: '/',
-        route: '/',
-        query: {},
-        asPath: '/',
-        back: jest.fn(),
-        beforePopState: jest.fn(),
-        prefetch: jest.fn(),
-        push: jest.fn(),
-        reload: jest.fn(),
-        replace: jest.fn(),
-        events: {
-            on: jest.fn(),
-            off: jest.fn(),
-            emit: jest.fn(),
-        },
-        isFallback: false,
-        isLocaleDomain: false,
-        isReady: true,
-        defaultLocale: 'en',
-        domainLocales: [],
-        isPreview: false,
-        ...router,
-    };
-}
