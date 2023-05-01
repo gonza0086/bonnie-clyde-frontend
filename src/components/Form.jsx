@@ -37,14 +37,11 @@ export default function Form({ children, onSubmit }) {
     };
 
     return (
-        <>
-            <Title variant='middle'>Bonnie & Clyde</Title>
-            <form className='form' onSubmit={handleSubmit}>
-                {children.map(input => cloneElement(input, { key: input.props.id, updateValue: handleValueUpdate }))}
-                <Button className='form-button' type='submit' variant='contained' color='secondary' disabled={isDisabled()}>
-                    Signup
-                </Button>
-            </form>
-        </>
+        <form className='form' onSubmit={handleSubmit}>
+            {children.map(input => cloneElement(input, { key: input.props.id, updateValue: handleValueUpdate }))}
+            <Button className='form-button' type='submit' variant='contained' color='secondary' disabled={isDisabled()}>
+                Signup
+            </Button>
+        </form>
     );
 }

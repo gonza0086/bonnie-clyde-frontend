@@ -16,6 +16,7 @@ export default function Signup() {
 
     return (
         <div className='container floating-container'>
+            <Title variant='title'>Bonnie & Clyde</Title>
             <Form onSubmit={handleSubmit}>
                 <Input id='username' required />
                 <Input id='email' type='email' required />
