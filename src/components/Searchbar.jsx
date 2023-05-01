@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 // Mui
-import { IconButton, InputBase, TextField } from '@mui/material';
+import { IconButton, InputBase } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 // Styles

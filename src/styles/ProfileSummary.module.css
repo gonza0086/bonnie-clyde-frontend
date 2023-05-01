@@ -1,0 +1,25 @@
+.container {
+    width: fit-content;
+    margin-block: 1rem;
+}
+
+.avatar {
+    cursor: pointer;
+}
+
+.body {
+    cursor: pointer;
+    align-self: center;
+    padding-right: 10rem;
+}
+
+.typography {
+    line-height: 1;
+    color: var(--grey-700);
+}
+
+.button {
+    align-self: center;
+    width: 5vw;
+    height: 4vh;
+}
