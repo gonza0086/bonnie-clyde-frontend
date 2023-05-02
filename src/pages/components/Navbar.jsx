@@ -11,17 +11,17 @@ import Image from 'next/image';
 export default function Navbar() {
     const router = useRouter();
 
-    const handleLogoClick = () => {
-        router.push('/');
+    const handleRouter = route => {
+        router.push(route);
     };
 
     return (
         <AppBar position='static'>
             <Toolbar className='navbar'>
                 <div className='navbar-logo-container'>
-                    <Image src={logo} alt='Bonnie & Clyde Logo' fill onClick={handleLogoClick} />
+                    <Image src={logo} alt='Bonnie & Clyde Logo' fill onClick={() => handleRouter('/')} />
                 </div>
-                <Button variant='contained' color='secondary'>
+                <Button variant='contained' color='secondary' onClick={() => handleRouter('/login')}>
                     Login
                 </Button>
             </Toolbar>
