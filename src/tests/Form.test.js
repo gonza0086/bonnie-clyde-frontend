@@ -6,7 +6,7 @@ import RevalidationInput from '@/pages/signup/components/RevalidationInput';
 
 test('form button is disabled while required fields are not filled', async () => {
     render(
-        <Form>
+        <Form button='Signup'>
             <Input id='username' required />
             <Input id='email' type='email' />
         </Form>
@@ -43,7 +43,7 @@ test('form button is disabled while required fields are not filled', async () =>
 test('onSubmit is called when submit button is clicked and send all the input values correctly', async () => {
     const onSubmit = jest.fn();
     render(
-        <Form onSubmit={onSubmit}>
+        <Form onSubmit={onSubmit} button='Signup'>
             <Input id='username' required />
             <Input id='email' type='email' required />
             <RevalidationInput id='password' revalidateId='repeat-password' type='password' required>

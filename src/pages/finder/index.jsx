@@ -22,7 +22,7 @@ export default function Finder() {
     const [userProfile, setUserProfile] = useState({});
 
     const handleSearch = searchValue => {
-        if ('gonzalo hernandez'.includes(searchValue)) {
+        if ('Gonzalo Hernandez'.includes(searchValue)) {
             setData([testUser]);
         } else {
             setData([]);

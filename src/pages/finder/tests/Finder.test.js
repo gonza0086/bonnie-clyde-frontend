@@ -6,6 +6,12 @@ import Finder from '..';
 test('When clicking on a profile summary the profile of that user is shown', async () => {
     render(<Finder />);
 
+    const searchInput = screen.getByRole('textbox');
+    const searchButton = screen.getByRole('button');
+
+    await userEvent.type(searchInput, 'Gonzalo');
+    await userEvent.click(searchButton);
+
     const summary = screen.getByText('Gonzalo Hernandez');
 
     await userEvent.click(summary);
@@ -17,7 +23,14 @@ test('When clicking on a profile summary the profile of that user is shown', asy
 test('When clicking on the profile close button the profile is closed', async () => {
     render(<Finder />);
 
+    const searchInput = screen.getByRole('textbox');
+    const searchButton = screen.getByRole('button');
+
+    await userEvent.type(searchInput, 'Gonzalo');
+    await userEvent.click(searchButton);
+
     const summary = screen.getByText('Gonzalo Hernandez');
+
     await userEvent.click(summary);
 
     const closeButton = screen.getByTestId('CloseIcon');
