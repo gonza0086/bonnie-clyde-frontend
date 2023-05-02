@@ -54,6 +54,7 @@ h3 {
 }
 
 .navbar-logo-container {
+    cursor: pointer;
     position: relative;
     width: 8vw;
     height: 6vh;

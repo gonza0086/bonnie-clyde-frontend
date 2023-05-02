@@ -1,9 +1,11 @@
 // Components
 import { Profile, ProfileSummary, Searchbar, Title } from '@/components';
 
+// hooks
+import { useState } from 'react';
+
 // Mui
 import { Stack } from '@mui/material';
-import { useState } from 'react';
 
 // Faking API
 const testUser = {
