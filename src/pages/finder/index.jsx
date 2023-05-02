@@ -42,8 +42,8 @@ export default function Finder() {
     };
 
     return (
-        <Stack direction='row' gap={48}>
-            <div className='container' style={{ width: '30vw' }}>
+        <Stack direction='row' gap={6}>
+            <div className='container' style={{ width: '70vw', height: '80vh' }}>
                 <Title variant='title'>Find your partner</Title>
                 <Searchbar onSearch={handleSearch} />
 
@@ -53,7 +53,7 @@ export default function Finder() {
             </div>
 
             {showProfile && (
-                <div className='container'>
+                <div className='container' style={{ height: '30vh' }}>
                     <Profile user={userProfile} onClose={handleClose} />
                 </div>
             )}
