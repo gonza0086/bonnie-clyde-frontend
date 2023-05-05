@@ -12,7 +12,7 @@ export default function Profile({ user, onClose }) {
     };
 
     return (
-        <>
+        <div>
             <Stack direction='row' gap={2} style={{ alignItems: 'end' }}>
                 <Avatar sx={{ bgcolor: green[500], width: 92, height: 92 }}>{user.name.charAt(0).toUpperCase()}</Avatar>
                 <Title>{user.name}</Title>
@@ -28,6 +28,6 @@ export default function Profile({ user, onClose }) {
             <Typography>{`Sex: ${user.sex}`}</Typography>
             <Typography>{`Country: ${user.country}`}</Typography>
             <Typography>{`Birthday: ${user.birdthday}`}</Typography>
-        </>
+        </div>
     );
 }

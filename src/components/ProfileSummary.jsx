@@ -2,40 +2,24 @@
 import Title from './Title';
 
 // Mui
-import { Avatar, Button, Stack, Typography } from '@mui/material';
-import { green } from '@mui/material/colors';
+import { ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemText, Stack, Typography } from '@mui/material';
 
-// Styles
-import styles from '@/styles/ProfileSummary.module.css';
-
-export default function ProfileSummary({ user, onClick, onSubmit }) {
+export default function ProfileSummary({ children, avatar, primaryText, secondaryText, secondaryAction, onClick }) {
     const handleClick = () => {
-        onClick(user);
-    };
-
-    const handleSubmit = () => {
-        onSubmit(user.id);
+        onClick();
     };
 
     return (
-        <Stack direction='row' gap={2} className={styles.container}>
-            <Avatar
-                className={styles.avatar}
-                alt={`${user.id}_logo`}
-                sx={{ bgcolor: green[500], width: 60, height: 60 }}
-                onClick={handleClick}
-            >
-                {user.name.charAt(0).toUpperCase()}
-            </Avatar>
+        <ListItem secondaryAction={secondaryAction} disablePadding>
+            <ListItemButton onClick={handleClick}>
+                <ListItemAvatar sx={{ minWidth: '32px' }}>{avatar}</ListItemAvatar>
 
-            <div className={styles.body} onClick={handleClick}>
-                <Title tag='h6'>{user.name}</Title>
-                <Typography className={styles.typography}>{`${user.country} | ${user.sex}`}</Typography>
-            </div>
+                <ListItemText secondary={secondaryText}>
+                    <Title tag='h6'>{primaryText}</Title>
+                </ListItemText>
 
-            <Button color='secondary' variant='contained' className={styles.button} onClick={handleSubmit}>
-                Match
-            </Button>
-        </Stack>
+                <ListItemIcon sx={{ gap: 1 }}>{children}</ListItemIcon>
+            </ListItemButton>
+        </ListItem>
     );
 }

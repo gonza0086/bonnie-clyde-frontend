@@ -5,7 +5,8 @@ import { Profile, ProfileSummary, Searchbar, Title } from '@/components';
 import { useState } from 'react';
 
 // Mui
-import { Stack } from '@mui/material';
+import { Avatar, Button, List, Stack } from '@mui/material';
+import { green } from '@mui/material/colors';
 
 // Faking API
 const testUser = {
@@ -44,21 +45,34 @@ export default function Finder() {
     };
 
     return (
-        <Stack direction='row' gap={6}>
-            <div className='container' style={{ width: '70vw', height: '80vh' }}>
-                <Title variant='title'>Find your partner</Title>
-                <Searchbar onSearch={handleSearch} />
+        <div className='container'>
+            <Title variant='title'>Find your partner</Title>
+            <Searchbar onSearch={handleSearch} />
 
-                {data.map(user => (
-                    <ProfileSummary key={user.id} user={user} onClick={handleProfileSummaryClick} onSubmit={handleMatch} />
-                ))}
-            </div>
+            <Stack direction='row'>
+                <List sx={{ width: '40%' }}>
+                    {data.map(user => (
+                        <ProfileSummary
+                            key={user.id}
+                            avatar={
+                                <Avatar sx={{ bgcolor: green[500], marginRight: 1, width: 54, height: 54 }} alt={`${user.id}_logo`}>
+                                    G
+                                </Avatar>
+                            }
+                            primaryText={user.name}
+                            secondaryText={`${user.country} | ${user.sex}`}
+                            secondaryAction={
+                                <Button variant='contained' color='secondary' onClick={() => handleMatch(user.id)}>
+                                    Match
+                                </Button>
+                            }
+                            onClick={() => handleProfileSummaryClick(user)}
+                        />
+                    ))}
+                </List>
 
-            {showProfile && (
-                <div className='container' style={{ height: '30vh' }}>
-                    <Profile user={userProfile} onClose={handleClose} />
-                </div>
-            )}
-        </Stack>
+                {showProfile && <Profile user={userProfile} onClose={handleClose} />}
+            </Stack>
+        </div>
     );
 }
