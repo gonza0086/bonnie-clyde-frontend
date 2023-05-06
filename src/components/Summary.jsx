@@ -2,9 +2,9 @@
 import Title from './Title';
 
 // Mui
-import { ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemText, Stack, Typography } from '@mui/material';
+import { ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 
-export default function ProfileSummary({ children, avatar, primaryText, secondaryText, secondaryAction, onClick }) {
+export default function Summary({ children, avatar, primaryText, secondaryText, secondaryAction, onClick }) {
     const handleClick = () => {
         onClick();
     };

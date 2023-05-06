@@ -1,23 +1,30 @@
 // Components
-import { ProfileSummary, Searchbar, Title } from '@/components';
-import { Chip, List, ListItem, ListItemAvatar, ListItemIcon, ListItemText } from '@mui/material';
-import CircleIcon from '@mui/icons-material/Circle';
-import WbSunnyIcon from '@mui/icons-material/WbSunny';
-import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
+import { Searchbar, Title } from '@/components';
+import PlanSummary from './components/PlanSummary';
+
+// Mui
+import { List } from '@mui/material';
 
 // Fake API
-const testPlan = {
-    name: 'Paseo Jardin Japones',
-    createdBy: 'Gonzalo Hernandez',
-    color: 'success',
-};
+const testPlan = [
+    {
+        id: 0,
+        name: 'Paseo Jardin Japones',
+        createdBy: 'Gonzalo Hernandez',
+        color: 'success',
+        tags: [
+            { label: 'Dia', color: 'secondary' },
+            { label: 'Paseo', color: 'primary' },
+        ],
+    },
+];
 
 export default function Plans() {
     const handleSearch = search => {
         console.log(search);
     };
 
-    const handleClick = plan => {
+    const handleSummaryClick = plan => {
         console.log(plan.name);
     };
 
@@ -27,28 +34,9 @@ export default function Plans() {
             <Searchbar onSearch={handleSearch} />
 
             <List sx={{ width: '40%' }}>
-                <ListItem>
-                    <ListItemAvatar sx={{ minWidth: '32px' }}>
-                        <CircleIcon color='success' fontSize='small' />
-                    </ListItemAvatar>
-                    <ListItemText secondary='Gonzalo Hernandez'>
-                        <Title tag='h6'>Paseo Jardin Japones</Title>
-                    </ListItemText>
-                    <ListItemIcon sx={{ gap: 1 }}>
-                        <Chip icon={<WbSunnyIcon fontSize='small' />} label='Dia' color='secondary' />
-                        <Chip icon={<DirectionsWalkIcon fontSize='small' />} label='Paseo' color='primary' />
-                    </ListItemIcon>
-                </ListItem>
-
-                <ProfileSummary
-                    primaryText={testPlan.name}
-                    secondaryText={testPlan.createdBy}
-                    avatar={<CircleIcon color={testPlan.color} fontSize='small' />}
-                    onClick={() => handleClick(testPlan)}
-                >
-                    <Chip icon={<WbSunnyIcon fontSize='small' />} label='Dia' color='secondary' />
-                    <Chip icon={<DirectionsWalkIcon fontSize='small' />} label='Paseo' color='primary' />
-                </ProfileSummary>
+                {testPlan.map(plan => (
+                    <PlanSummary key={plan.id} plan={plan} onClick={handleSummaryClick}></PlanSummary>
+                ))}
             </List>
         </div>
     );
