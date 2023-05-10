@@ -27,19 +27,6 @@ export default function Plans() {
             <Searchbar onSearch={handleSearch} />
 
             <List sx={{ width: '40%' }}>
-                <ListItem>
-                    <ListItemAvatar sx={{ minWidth: '32px' }}>
-                        <CircleIcon color='success' fontSize='small' />
-                    </ListItemAvatar>
-                    <ListItemText secondary='Gonzalo Hernandez'>
-                        <Title tag='h6'>Paseo Jardin Japones</Title>
-                    </ListItemText>
-                    <ListItemIcon sx={{ gap: 1 }}>
-                        <Chip icon={<WbSunnyIcon fontSize='small' />} label='Dia' color='secondary' />
-                        <Chip icon={<DirectionsWalkIcon fontSize='small' />} label='Paseo' color='primary' />
-                    </ListItemIcon>
-                </ListItem>
-
                 <ProfileSummary
                     primaryText={testPlan.name}
                     secondaryText={testPlan.createdBy}
