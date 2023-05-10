@@ -3,6 +3,7 @@ import { Summary } from '@/components';
 
 import { Chip } from '@mui/material';
 import CircleIcon from '@mui/icons-material/Circle';
+import { useState } from 'react';
 
 export default function PlanSummary({ plan, onClick }) {
     const handleClick = plan => {
