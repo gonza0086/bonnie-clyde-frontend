@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { RouterContext } from 'next/dist/shared/lib/router-context.js';
-import { createMockRouter } from '@/utilites/tests/createMockRouter.js';
+import { createMockRouter } from '@/test-utilities/createMockRouter.js';
 import { Navbar } from '../components/barrels';
 
 test('logo redirects user to /', async () => {

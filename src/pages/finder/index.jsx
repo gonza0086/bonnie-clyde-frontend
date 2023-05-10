@@ -1,5 +1,5 @@
 // Components
-import { Profile, ProfileSummary, Searchbar, Title } from '@/components';
+import { Profile, Summary, Searchbar, Title } from '@/components';
 
 // hooks
 import { useState } from 'react';
@@ -52,7 +52,7 @@ export default function Finder() {
             <Stack direction='row'>
                 <List sx={{ width: '40%' }}>
                     {data.map(user => (
-                        <ProfileSummary
+                        <Summary
                             key={user.id}
                             avatar={
                                 <Avatar sx={{ bgcolor: green[500], marginRight: 1, width: 54, height: 54 }} alt={`${user.id}_logo`}>

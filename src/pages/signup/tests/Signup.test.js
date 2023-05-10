@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import Signup from '../index.jsx';
 import { RouterContext } from 'next/dist/shared/lib/router-context.js';
-import { createMockRouter } from '@/utilites/tests/createMockRouter.js';
+import { createMockRouter } from '@/test-utilities/createMockRouter.js';
 
 test('After completing the form and clicking the signup button the user gets redirect to partner-finder', async () => {
     const router = createMockRouter();
@@ -13,13 +13,15 @@ test('After completing the form and clicking the signup button the user gets red
         </RouterContext.Provider>
     );
 
-    const usernameInput = screen.getByLabelText('Username *');
+    const firstNameInput = screen.getByLabelText('First name *');
+    const lastNameInput = screen.getByLabelText('Last name *');
     const emailInput = screen.getByLabelText('Email *');
     const passwordInput = screen.getByLabelText('Password *');
     const repeatPasswordInput = screen.getByLabelText('Repeat password *');
     const formButton = screen.getByRole('button', { name: 'Signup' });
 
-    await userEvent.type(usernameInput, 'Gonza0086');
+    await userEvent.type(firstNameInput, 'Gonzalo');
+    await userEvent.type(lastNameInput, 'Hernandez');
     await userEvent.type(emailInput, 'gonza@gmail.com');
     await userEvent.type(passwordInput, 'Password123');
     await userEvent.type(repeatPasswordInput, 'Password123');

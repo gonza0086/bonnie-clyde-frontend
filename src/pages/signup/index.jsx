@@ -46,8 +46,8 @@ export default function Signup() {
         <div className='container floating-container'>
             <Title variant='title'>Bonnie & Clyde</Title>
             <Form onSubmit={handleSubmit} button='Signup'>
-                <Input id='firstName' required />
-                <Input id='lastName' required />
+                <Input id='first-name' required />
+                <Input id='last-name' required />
                 <Input id='email' type='email' required />
                 <RevalidationInput id='password' revalidateId='repeat-password' type='password' required>
                     <PasswordInput helper />

@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { RouterContext } from 'next/dist/shared/lib/router-context.js';
-import { createMockRouter } from '@/utilites/tests/createMockRouter.js';
+import { createMockRouter } from '@/test-utilities/createMockRouter.js';
 import Login from '..';
 
 test('After completing the form and clicking the signup button the user gets redirect to partner-finder', async () => {
