@@ -82,6 +82,7 @@ h3 {
 }
 
 .floating-container {
+    background-color: white;
     width: fit-content;
     padding-block: 1em;
     padding-inline: 2em;

@@ -14,7 +14,7 @@ export default function Login() {
     };
 
     return (
-        <div className='container floating-container'>
+        <div className='floating-container'>
             <Title variant='title'>Bonnie & Clyde</Title>
             <Form onSubmit={handleSubmit} button='Login'>
                 <Input id='username' required />

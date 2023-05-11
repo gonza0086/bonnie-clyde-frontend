@@ -9,32 +9,15 @@ import { useState } from 'react';
 // Next
 import { useRouter } from 'next/router';
 import { Typography } from '@mui/material';
-
-const createUser = async user => {
-    let response = await fetch('http://localhost:8080/users/signup', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user),
-    });
-
-    let json = await response.json();
-    if (!response.ok) {
-        throw new Error(json.message);
-    }
-
-    return json.id;
-};
+import { postData } from '@/services/postData';
 
 export default function Signup() {
     const [error, setError] = useState('');
     const router = useRouter();
 
-    const handleSubmit = async values => {
-        delete values['repeat-password'];
+    const createUser = async user => {
         try {
-            let id = await createUser(values);
+            let response = await postData('user/signup', user);
             // METER REDUX PARA STOREAR USER
             router.push('/finder');
         } catch (error) {
@@ -42,17 +25,23 @@ export default function Signup() {
         }
     };
 
+    const handleSubmit = async values => {
+        delete values['repeat-password'];
+        createUser(values);
+    };
+
     return (
-        <div className='container floating-container'>
+        <div className='floating-container'>
             <Title variant='title'>Bonnie & Clyde</Title>
             <Form onSubmit={handleSubmit} button='Signup'>
-                <Input id='first-name' required />
-                <Input id='last-name' required />
+                <Input id='first-name' required style={{ width: '49%', marginRight: '2%' }} />
+                <Input id='last-name' required style={{ width: '49%' }} />
                 <Input id='email' type='email' required />
                 <RevalidationInput id='password' revalidateId='repeat-password' type='password' required>
                     <PasswordInput helper />
                 </RevalidationInput>
             </Form>
+            <div style={{ paddingBlock: '2%' }} />
             <Typography color='red'>{error}</Typography>
         </div>
     );

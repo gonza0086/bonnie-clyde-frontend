@@ -4,8 +4,13 @@ import '@testing-library/jest-dom';
 import Signup from '../index.jsx';
 import { RouterContext } from 'next/dist/shared/lib/router-context.js';
 import { createMockRouter } from '@/test-utilities/createMockRouter.js';
+import { server } from './mocks/mocks.js';
 
-test('After completing the form and clicking the signup button the user gets redirect to partner-finder', async () => {
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
+
+test('After completing the form and clicking the signup button the user gets redirect to finder', async () => {
     const router = createMockRouter();
     render(
         <RouterContext.Provider value={router}>

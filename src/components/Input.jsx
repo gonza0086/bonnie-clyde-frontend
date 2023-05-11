@@ -10,7 +10,7 @@ import { TextField } from '@mui/material';
 // Styles
 import styles from '../styles/Input.module.css';
 
-export default function Input({ id, required, updateValue, type = 'text', inputProps, showPassword }) {
+export default function Input({ id, required, updateValue, type = 'text', style, inputProps, showPassword }) {
     const [inputValue, setInputValue] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [isInitialState, setIsInitialState] = useState(true);
@@ -40,6 +40,7 @@ export default function Input({ id, required, updateValue, type = 'text', inputP
             label={label}
             value={inputValue}
             required={required}
+            style={style}
             onChange={handleChange}
             className={styles.input}
             type={showPassword ? 'text' : type}
