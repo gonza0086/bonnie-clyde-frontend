@@ -4,7 +4,8 @@ import '@testing-library/jest-dom';
 import Signup from '../index.jsx';
 import { RouterContext } from 'next/dist/shared/lib/router-context.js';
 import { createMockRouter } from '@/test-utilities/createMockRouter.js';
-import { server } from './mocks/mocks.js';
+import { server } from './mocks/server.js';
+require('jest-fetch-mock').enableMocks();
 
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());

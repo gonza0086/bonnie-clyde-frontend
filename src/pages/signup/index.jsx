@@ -17,10 +17,12 @@ export default function Signup() {
 
     const createUser = async user => {
         try {
-            let response = await postData('user/signup', user);
+            let response = await postData('users/signup', user);
+            console.log(response);
             // METER REDUX PARA STOREAR USER
             router.push('/finder');
         } catch (error) {
+            console.log(error);
             setError(error.message);
         }
     };
