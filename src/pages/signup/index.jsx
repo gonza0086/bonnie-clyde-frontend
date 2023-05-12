@@ -8,27 +8,32 @@ import { useState } from 'react';
 
 // Next
 import { useRouter } from 'next/router';
+
+// Mui
 import { Typography } from '@mui/material';
+
+// Services
 import { postData } from '@/services/postData';
+
+// Adapters
+import { createAdaptedUser } from './adapters/signup.adapter';
 
 export default function Signup() {
     const [error, setError] = useState('');
     const router = useRouter();
 
     const createUser = async user => {
+        const adaptedUser = createAdaptedUser(user);
         try {
-            let response = await postData('users/signup', user);
-            console.log(response);
+            let response = await postData('users/signup', adaptedUser);
             // METER REDUX PARA STOREAR USER
             router.push('/finder');
         } catch (error) {
-            console.log(error);
             setError(error.message);
         }
     };
 
-    const handleSubmit = async values => {
-        delete values['repeat-password'];
+    const handleSubmit = values => {
         createUser(values);
     };
 
