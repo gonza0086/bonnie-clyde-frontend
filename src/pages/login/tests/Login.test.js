@@ -1,17 +1,16 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+// Testing Library
 import '@testing-library/jest-dom';
-import { RouterContext } from 'next/dist/shared/lib/router-context.js';
-import { createMockRouter } from '@/test-utilities/createMockRouter.js';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+// Test Utilities
+import { renderWithProviders } from '@/test-utilities/renderWithProviders';
+
+// components
 import Login from '..';
 
 test('After completing the form and clicking the signup button the user gets redirect to partner-finder', async () => {
-    const router = createMockRouter();
-    render(
-        <RouterContext.Provider value={router}>
-            <Login />
-        </RouterContext.Provider>
-    );
+    const { router } = renderWithProviders(<Login />);
 
     const usernameInput = screen.getByLabelText('Username *');
     const passwordInput = screen.getByLabelText('Password *');

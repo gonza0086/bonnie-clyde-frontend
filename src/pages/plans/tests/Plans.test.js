@@ -1,6 +1,9 @@
+// Testing Library
+import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import '@testing-library/jest-dom';
+
+// Components
 import Plans from '..';
 
 test('when clicking plan summary the detail of the summary opens', async () => {

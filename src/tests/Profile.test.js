@@ -1,8 +1,12 @@
+// Testing Library
+import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import '@testing-library/jest-dom';
+
+// Components
 import { Profile } from '@/components';
 
+// Objects
 const testUser = {
     id: 0,
     name: 'Gonzalo Hernandez',

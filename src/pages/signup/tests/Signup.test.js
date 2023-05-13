@@ -1,12 +1,16 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+// Testing Library
 import '@testing-library/jest-dom';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+// Test Utilities
+import { renderWithProviders } from '@/test-utilities/renderWithProviders.js';
+
+// Components
 import Signup from '../index.jsx';
-import { RouterContext } from 'next/dist/shared/lib/router-context.js';
-import { createMockRouter } from '@/test-utilities/createMockRouter.js';
+
+// Mocks
 import { server } from './mocks/server.js';
-import { Provider, useSelector } from 'react-redux';
-import { store } from '@/redux/store.js';
 require('jest-fetch-mock').enableMocks();
 
 beforeAll(() => server.listen());
@@ -14,14 +18,7 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 test('After completing the form and clicking the signup button the user gets redirect to finder', async () => {
-    const router = createMockRouter();
-    render(
-        <Provider store={store}>
-            <RouterContext.Provider value={router}>
-                <Signup />
-            </RouterContext.Provider>
-        </Provider>
-    );
+    const { store, router } = renderWithProviders(<Signup />);
 
     const firstNameInput = screen.getByLabelText('First name *');
     const lastNameInput = screen.getByLabelText('Last name *');
@@ -50,14 +47,7 @@ test('After completing the form and clicking the signup button the user gets red
 });
 
 test('After completing the form and clicking the signup button error message appears: user already exists', async () => {
-    const router = createMockRouter();
-    render(
-        <Provider store={store}>
-            <RouterContext.Provider value={router}>
-                <Signup />
-            </RouterContext.Provider>
-        </Provider>
-    );
+    renderWithProviders(<Signup />);
 
     const firstNameInput = screen.getByLabelText('First name *');
     const lastNameInput = screen.getByLabelText('Last name *');

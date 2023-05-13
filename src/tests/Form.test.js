@@ -1,6 +1,9 @@
+// Testing Library
+import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import '@testing-library/jest-dom';
+
+// Components
 import { Form, Input, PasswordInput } from '@/components';
 import RevalidationInput from '@/pages/signup/components/RevalidationInput';
 

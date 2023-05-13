@@ -1,16 +1,15 @@
-import { render, screen } from '@testing-library/react';
+// Testing Library
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { RouterContext } from 'next/dist/shared/lib/router-context.js';
-import { createMockRouter } from '@/test-utilities/createMockRouter.js';
+
+// Test Utilities
+import { renderWithProviders } from '@/test-utilities/renderWithProviders';
+
+// Components
 import { Navbar } from '../components/barrels';
 
 test('logo redirects user to /', async () => {
-    const router = createMockRouter();
-    render(
-        <RouterContext.Provider value={router}>
-            <Navbar />
-        </RouterContext.Provider>
-    );
+    const { router } = renderWithProviders(<Navbar />);
 
     const logo = screen.getByAltText('Bonnie & Clyde Logo');
 
@@ -19,12 +18,7 @@ test('logo redirects user to /', async () => {
 });
 
 test('login button redirects user to /login', async () => {
-    const router = createMockRouter();
-    render(
-        <RouterContext.Provider value={router}>
-            <Navbar />
-        </RouterContext.Provider>
-    );
+    const { router } = renderWithProviders(<Navbar />);
 
     const loginButton = screen.getByRole('button', { name: 'Login' });
 

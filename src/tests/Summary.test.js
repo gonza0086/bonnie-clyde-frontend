@@ -1,6 +1,9 @@
+// Testing Library
+import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import '@testing-library/jest-dom';
+
+// Components
 import { Summary } from '@/components';
 import { Avatar } from '@mui/material';
 

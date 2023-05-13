@@ -1,23 +1,17 @@
-import { render, screen } from '@testing-library/react';
+// Testing Library
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { RouterContext } from 'next/dist/shared/lib/router-context.js';
-import { createMockRouter } from '@/test-utilities/createMockRouter.js';
+
+// Test Utilities
+import { renderWithProviders } from '@/test-utilities/renderWithProviders';
+import { setupStore } from '@/test-utilities/setupStore';
+
+// Components
 import Home from '..';
-import { Provider } from 'react-redux';
-import { store } from '@/redux/store';
-import { configureStore } from '@reduxjs/toolkit';
-import userReducer from '../../redux/slices/userSlice';
 
 describe('<Landing />', () => {
     test('get started button redirects user to /signup', async () => {
-        const router = createMockRouter();
-        render(
-            <Provider store={store}>
-                <RouterContext.Provider value={router}>
-                    <Home />
-                </RouterContext.Provider>
-            </Provider>
-        );
+        const { router } = renderWithProviders(<Home />);
 
         const getStartedButton = screen.getByRole('button', { name: 'Get Started' });
 
@@ -28,21 +22,8 @@ describe('<Landing />', () => {
 
 describe('<Finder />', () => {
     test('when user is authenticated but does not have a partner finder renders', () => {
-        const store = configureStore({
-            reducer: {
-                user: userReducer,
-            },
-            preloadedState: {
-                user: { authenticated: true, partner: null },
-            },
-        });
-        render(
-            <Provider store={store}>
-                <RouterContext.Provider value={createMockRouter()}>
-                    <Home />
-                </RouterContext.Provider>
-            </Provider>
-        );
+        const store = setupStore({ user: { authenticated: true } });
+        renderWithProviders(<Home />, store);
 
         expect(screen.getByText('Find your partner'));
     });

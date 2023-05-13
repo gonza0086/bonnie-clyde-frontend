@@ -1,6 +1,9 @@
+// Testing Library
+import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import '@testing-library/jest-dom';
+
+// Components
 import { Searchbar } from '@/components';
 
 test('searchbar pass to the callback function the text you wrote in it when clicking the submit icon', async () => {

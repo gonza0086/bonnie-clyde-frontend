@@ -1,6 +1,9 @@
+// Testing Library
+import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import '@testing-library/jest-dom';
+
+// Components
 import PlanSummary from '../components/PlanSummary';
 
 const plan = {
