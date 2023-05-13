@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-import Finder from '..';
+import { Finder } from '../components/barrels';
 
 test('When clicking on a profile summary the profile of that user is shown', async () => {
     render(<Finder />);
