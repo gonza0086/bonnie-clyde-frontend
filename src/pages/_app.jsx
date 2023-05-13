@@ -7,6 +7,8 @@ import ThemeContext from '@/contexts/ThemeContext';
 
 // Styles
 import '@/styles/globals.css';
+import { Provider } from 'react-redux';
+import { store } from '@/redux/store';
 
 export default function App({ Component, pageProps }) {
     return (
@@ -19,11 +21,13 @@ export default function App({ Component, pageProps }) {
             </Head>
 
             <ThemeContext>
-                <Navbar />
-                <div className='content'>
-                    <Component {...pageProps} />
-                </div>
-                <Footer />
+                <Provider store={store}>
+                    <Navbar />
+                    <div className='content'>
+                        <Component {...pageProps} />
+                    </div>
+                    <Footer />
+                </Provider>
             </ThemeContext>
         </>
     );

@@ -18,16 +18,21 @@ import { postData } from '@/services/postData';
 // Adapters
 import { createAdaptedUser } from './adapters/signup.adapter';
 
+// Redux
+import { useDispatch } from 'react-redux';
+import { login } from '@/redux/slices/userSlice';
+
 export default function Signup() {
     const [error, setError] = useState('');
     const router = useRouter();
+    const dispatch = useDispatch();
 
     const createUser = async user => {
         const adaptedUser = createAdaptedUser(user);
         try {
-            let response = await postData('users/signup', adaptedUser);
-            // METER REDUX PARA STOREAR USER
-            router.push('/finder');
+            await postData('users/signup', adaptedUser);
+            dispatch(login(adaptedUser));
+            router.push('/');
         } catch (error) {
             setError(error.message);
         }
