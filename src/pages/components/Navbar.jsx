@@ -7,14 +7,24 @@ import logo from '@/assets/logo.svg';
 // Next
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import { Title } from '@/components';
 import Link from 'next/link';
+
+// redux
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '@/redux/slices/userSlice';
 
 export default function Navbar() {
     const router = useRouter();
+    const { authenticated } = useSelector(state => state.user);
+    const dispatch = useDispatch();
 
     const handleRouter = route => {
         router.push(route);
+    };
+
+    const handleLogout = () => {
+        // dispatch(logout());
+        console.log('Logout');
     };
 
     return (
@@ -23,14 +33,26 @@ export default function Navbar() {
                 <div className='navbar-logo-container'>
                     <Image src={logo} alt='Bonnie & Clyde Logo' fill onClick={() => handleRouter('/')} />
                 </div>
-                <ul>
-                    <Link href='/plans' style={{ textDecoration: 'none' }}>
-                        <Typography>Plans</Typography>
-                    </Link>
-                </ul>
-                <Button variant='contained' color='secondary' onClick={() => handleRouter('/login')}>
-                    Login
-                </Button>
+
+                {authenticated && (
+                    <>
+                        <ul>
+                            <Link href='/plans' style={{ textDecoration: 'none' }}>
+                                <Typography>Plans</Typography>
+                            </Link>
+                        </ul>
+
+                        <Button variant='contained' color='secondary' onClick={handleLogout}>
+                            Logout
+                        </Button>
+                    </>
+                )}
+
+                {!authenticated && (
+                    <Button variant='contained' color='secondary' onClick={() => handleRouter('/login')}>
+                        Login
+                    </Button>
+                )}
             </Toolbar>
         </AppBar>
     );
