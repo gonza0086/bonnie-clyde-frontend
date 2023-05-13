@@ -4,42 +4,16 @@ import RevalidationInput from './components/RevalidationInput';
 import { Form, Input, PasswordInput } from '@/components';
 
 // Hooks
-import { useState } from 'react';
-
-// Next
-import { useRouter } from 'next/router';
+import { useAuth } from '@/hooks';
 
 // Mui
 import { Typography } from '@mui/material';
 
-// Services
-import { postData } from '@/services/postData';
-
-// Adapters
-import { createAdaptedUser } from './adapters/signup.adapter';
-
-// Redux
-import { useDispatch } from 'react-redux';
-import { login } from '@/redux/slices/userSlice';
-
 export default function Signup() {
-    const [error, setError] = useState('');
-    const router = useRouter();
-    const dispatch = useDispatch();
-
-    const createUser = async user => {
-        const adaptedUser = createAdaptedUser(user);
-        try {
-            await postData('users/signup', adaptedUser);
-            dispatch(login(adaptedUser));
-            router.push('/');
-        } catch (error) {
-            setError(error.message);
-        }
-    };
+    const { error, signup } = useAuth();
 
     const handleSubmit = values => {
-        createUser(values);
+        signup(values);
     };
 
     return (
