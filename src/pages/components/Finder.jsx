@@ -49,7 +49,7 @@ export default function Finder() {
             <Title variant='title'>Find your partner</Title>
             <Searchbar onSearch={handleSearch} />
 
-            <Stack direction='row'>
+            <Stack direction='row' gap={64}>
                 <List sx={{ width: '40%' }}>
                     {data.map(user => (
                         <Summary

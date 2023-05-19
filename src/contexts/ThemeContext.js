@@ -1,6 +1,6 @@
 // MUI
 import { ThemeProvider, createTheme } from '@mui/material';
-import { deepPurple, pink } from '@mui/material/colors';
+import { deepPurple, grey, pink } from '@mui/material/colors';
 
 export default function ThemeContext({ children }) {
     const theme = createTheme({
@@ -10,6 +10,9 @@ export default function ThemeContext({ children }) {
             },
             secondary: {
                 main: pink[400],
+            },
+            cancel: {
+                main: grey[300],
             },
         },
     });

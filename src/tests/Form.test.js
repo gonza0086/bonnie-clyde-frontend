@@ -6,6 +6,7 @@ import userEvent from '@testing-library/user-event';
 // Components
 import { Form, Input, PasswordInput } from '@/components';
 import RevalidationInput from '@/pages/signup/components/RevalidationInput';
+import { renderWithProviders } from '@/test-utilities/renderWithProviders';
 
 test('form button is disabled while required fields are not filled', async () => {
     render(

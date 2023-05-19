@@ -8,12 +8,15 @@ import { RouterContext } from 'next/dist/shared/lib/router-context';
 // Test Utilities
 import { setupStore } from './setupStore';
 import { createMockRouter } from './createMockRouter';
+import ThemeContext from '@/contexts/ThemeContext';
 
 export function renderWithProviders(component, store = setupStore({}), router = createMockRouter()) {
     render(
-        <Provider store={store}>
-            <RouterContext.Provider value={router}>{component}</RouterContext.Provider>
-        </Provider>
+        <ThemeContext>
+            <Provider store={store}>
+                <RouterContext.Provider value={router}>{component}</RouterContext.Provider>
+            </Provider>
+        </ThemeContext>
     );
 
     return { store, router };

@@ -1,13 +1,12 @@
 // Components
-import { Searchbar, Title } from '@/components';
-import PlanSummary from './components/PlanSummary';
+import { Form, Input, Searchbar, Title } from '@/components';
+import { Plan, PlanSummary } from './components/barrels';
 
 // Hooks
 import { useState } from 'react';
 
 // Mui
-import { IconButton, List, Stack } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { Button, List, Stack } from '@mui/material';
 
 // Fake API
 const testPlan = [
@@ -16,6 +15,7 @@ const testPlan = [
         name: 'Paseo Jardin Japones',
         createdBy: 'Gonzalo Hernandez',
         color: 'success',
+        status: 'Done',
         tags: [
             { label: 'Dia', color: 'secondary' },
             { label: 'Paseo', color: 'primary' },
@@ -26,6 +26,7 @@ const testPlan = [
 export default function Plans() {
     const [plan, setPlan] = useState({});
     const [showPlan, setShowPlan] = useState(false);
+    const [showCreatePlan, setShowCreatePlan] = useState(false);
 
     const handleSearch = search => {
         console.log(search);
@@ -33,6 +34,7 @@ export default function Plans() {
 
     const handleSummaryClick = plan => {
         setPlan(plan);
+        setShowCreatePlan(false);
         setShowPlan(true);
     };
 
@@ -41,24 +43,45 @@ export default function Plans() {
         setPlan({});
     };
 
+    const handleNew = () => {
+        setShowPlan(false);
+        setShowCreatePlan(true);
+    };
+
+    const handleNewSubmit = values => {
+        console.log(values);
+    };
+
+    const handleCloseForm = () => {
+        setShowCreatePlan(false);
+    };
+
     return (
         <div className='container'>
             <Title variant='title'>Plans to do</Title>
-            <Searchbar onSearch={handleSearch} />
 
-            <Stack direction='row' justifyContent='space-between'>
+            <Stack direction='row' gap={2}>
+                <Searchbar onSearch={handleSearch} />
+                <Button sx={{ display: 'inline-block' }} variant='contained' color='secondary' onClick={handleNew}>
+                    New Plan
+                </Button>
+            </Stack>
+
+            <Stack direction='row' gap={64}>
                 <List sx={{ width: '40%' }}>
                     {testPlan.map(plan => (
                         <PlanSummary key={plan.id} plan={plan} onClick={handleSummaryClick}></PlanSummary>
                     ))}
                 </List>
 
-                {showPlan && (
+                {showPlan && <Plan plan={plan} onClick={handleClose} />}
+                {showCreatePlan && (
                     <div>
-                        <IconButton onClick={handleClose} style={{ float: 'right' }}>
-                            <CloseIcon />
-                        </IconButton>
-                        <Title>{plan.name + ' Details'}</Title>
+                        <Title variant='title'>Create Plan</Title>
+                        <Form button='Create' cancel onCancel={handleCloseForm} onSubmit={handleNewSubmit}>
+                            <Input id='name' />
+                            <Input id='tags' />
+                        </Form>
                     </div>
                 )}
             </Stack>

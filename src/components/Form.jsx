@@ -4,7 +4,7 @@ import { cloneElement, useState } from 'react';
 // Mui
 import { Button } from '@mui/material';
 
-export default function Form({ children, onSubmit, button }) {
+export default function Form({ children, onSubmit, button, cancel, onCancel }) {
     const initializeValueObject = () => {
         let initialIsValidObject = {};
         let initialValueObject = {};
@@ -35,9 +35,21 @@ export default function Form({ children, onSubmit, button }) {
         return Object.values(isValid).includes(false);
     };
 
+    const handleCancel = () => {
+        onCancel();
+    };
+
     return (
         <form className='form' onSubmit={handleSubmit}>
             {children.map(input => cloneElement(input, { key: input.props.id, updateValue: handleValueUpdate }))}
+            {cancel && (
+                <>
+                    <Button className='form-button' variant='contained' color='cancel' onClick={handleCancel}>
+                        Cancel
+                    </Button>
+                    <div style={{ display: 'inline-block', paddingInline: '1%' }} />
+                </>
+            )}
             <Button className='form-button' type='submit' variant='contained' color='secondary' disabled={isDisabled()}>
                 {button}
             </Button>
