@@ -5,3 +5,4 @@ export { default as PasswordInput } from './PasswordInput';
 export { default as Searchbar } from './Searchbar';
 export { default as Summary } from './Summary';
 export { default as Profile } from './Profile';
+export { default as FileInput } from './FileInput';

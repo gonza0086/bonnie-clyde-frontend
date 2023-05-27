@@ -1,30 +1,19 @@
 // Components
-import { Form, Input, Searchbar, Title } from '@/components';
+import { FileInput, Form, Input, Searchbar, Title } from '@/components';
 import { Plan, PlanSummary } from './components/barrels';
 
 // Hooks
 import { useState } from 'react';
 
 // Mui
-import { Button, List, Stack } from '@mui/material';
+import { Box, Button, Chip, FormControl, InputLabel, List, MenuItem, OutlinedInput, Select, Stack } from '@mui/material';
 
 // Fake API
-const testPlan = [
-    {
-        id: 0,
-        name: 'Paseo Jardin Japones',
-        createdBy: 'Gonzalo Hernandez',
-        color: 'success',
-        status: 'Done',
-        tags: [
-            { label: 'Dia', color: 'secondary' },
-            { label: 'Paseo', color: 'primary' },
-        ],
-    },
-];
+const TAGS = ['Dia', 'Noche', 'Restaurant', 'Cine', 'Outdoor', 'Indoor'];
 
 export default function Plans() {
     const [plan, setPlan] = useState({});
+    const [plans, setPlans] = useState([]);
     const [showPlan, setShowPlan] = useState(false);
     const [showCreatePlan, setShowCreatePlan] = useState(false);
 
@@ -69,7 +58,7 @@ export default function Plans() {
 
             <Stack direction='row' gap={64}>
                 <List sx={{ width: '40%' }}>
-                    {testPlan.map(plan => (
+                    {plans.map(plan => (
                         <PlanSummary key={plan.id} plan={plan} onClick={handleSummaryClick}></PlanSummary>
                     ))}
                 </List>
@@ -78,10 +67,12 @@ export default function Plans() {
                 {showCreatePlan && (
                     <div>
                         <Title variant='title'>Create Plan</Title>
-                        <Form button='Create' cancel onCancel={handleCloseForm} onSubmit={handleNewSubmit}>
-                            <Input id='name' />
-                            <Input id='tags' />
-                        </Form>
+                        <form>
+                            <Input id='title' />
+                            <Input id='location' />
+                            <Input id='comments' multiline />
+                            <FileInput />
+                        </form>
                     </div>
                 )}
             </Stack>

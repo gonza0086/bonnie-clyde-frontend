@@ -10,7 +10,7 @@ import { TextField } from '@mui/material';
 // Styles
 import styles from '../styles/Input.module.css';
 
-export default function Input({ id, required, updateValue, type = 'text', style, inputProps, showPassword }) {
+export default function Input({ id, required, updateValue, type = 'text', style, inputProps, showPassword, multiline, children }) {
     const [inputValue, setInputValue] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [isInitialState, setIsInitialState] = useState(true);
@@ -41,6 +41,8 @@ export default function Input({ id, required, updateValue, type = 'text', style,
             value={inputValue}
             required={required}
             style={style}
+            multiline={multiline}
+            rows={3}
             onChange={handleChange}
             className={styles.input}
             type={showPassword ? 'text' : type}
@@ -52,6 +54,8 @@ export default function Input({ id, required, updateValue, type = 'text', style,
                 onBlur: handleBlur,
             }}
             InputProps={inputProps}
-        />
+        >
+            {children}
+        </TextField>
     );
 }
