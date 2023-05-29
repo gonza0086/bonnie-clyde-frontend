@@ -17,6 +17,62 @@ export default function Plans() {
     const [showPlan, setShowPlan] = useState(false);
     const [showCreatePlan, setShowCreatePlan] = useState(false);
 
+    //
+    // Start Form Stuff
+    //
+
+    const [newPlan, setNewPlan] = useState({
+        title: '',
+        location: '',
+        comments: '',
+        images: [],
+        tags: [],
+    });
+
+    const [isValid, setIsValid] = useState({
+        title: false,
+        location: true,
+        comments: true,
+        images: true,
+        tags: true,
+    });
+
+    const handleValueUpdate = (id, newValue, isValueValid) => {
+        setNewPlan(prevValues => ({ ...prevValues, [id]: newValue }));
+        setIsValid(prevIsValid => ({ ...prevIsValid, [id]: isValueValid }));
+    };
+
+    const handleFormSubmit = e => {
+        e.preventDefault();
+        console.log(newPlan);
+    };
+
+    const handleFormClose = () => {
+        setNewPlan({
+            title: '',
+            location: '',
+            comments: '',
+            images: [],
+            tags: [],
+        });
+        setIsValid({
+            title: false,
+            location: true,
+            comments: true,
+            images: true,
+            tags: true,
+        });
+        setShowCreatePlan(false);
+    };
+
+    const isDisabled = () => {
+        return Object.values(isValid).includes(false);
+    };
+
+    //
+    // End Form Stuff
+    //
+
     const handleSearch = search => {
         console.log(search);
     };
@@ -35,14 +91,6 @@ export default function Plans() {
     const handleNew = () => {
         setShowPlan(false);
         setShowCreatePlan(true);
-    };
-
-    const handleNewSubmit = values => {
-        console.log(values);
-    };
-
-    const handleCloseForm = () => {
-        setShowCreatePlan(false);
     };
 
     return (
@@ -65,13 +113,23 @@ export default function Plans() {
 
                 {showPlan && <Plan plan={plan} onClick={handleClose} />}
                 {showCreatePlan && (
-                    <div>
+                    <div className='container' style={{ height: '50vh' }}>
                         <Title variant='title'>Create Plan</Title>
-                        <form>
-                            <Input id='title' />
-                            <Input id='location' />
-                            <Input id='comments' multiline />
-                            <FileInput />
+                        <form className='form' onSubmit={handleFormSubmit}>
+                            <Input id='title' updateValue={handleValueUpdate} required />
+                            <Input id='location' updateValue={handleValueUpdate} />
+                            <Input id='comments' multiline updateValue={handleValueUpdate} />
+                            <FileInput id='images' updateValue={handleValueUpdate} />
+
+                            <div style={{ float: 'right', gap: '5%', display: 'flex' }}>
+                                <Button className='form-button' variant='contained' color='cancel' onClick={handleFormClose}>
+                                    Cancel
+                                </Button>
+
+                                <Button className='form-button' type='submit' variant='contained' color='secondary' disabled={isDisabled()}>
+                                    Create
+                                </Button>
+                            </div>
                         </form>
                     </div>
                 )}
