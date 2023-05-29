@@ -1,5 +1,5 @@
 // Components
-import { FileInput, Form, Input, Searchbar, Title } from '@/components';
+import { FileInput, Form, Input, Searchbar, SelectInput, Title } from '@/components';
 import { Plan, PlanSummary } from './components/barrels';
 
 // Hooks
@@ -113,11 +113,12 @@ export default function Plans() {
 
                 {showPlan && <Plan plan={plan} onClick={handleClose} />}
                 {showCreatePlan && (
-                    <div className='container' style={{ height: '50vh' }}>
+                    <div style={{ width: '40vw' }}>
                         <Title variant='title'>Create Plan</Title>
-                        <form className='form' onSubmit={handleFormSubmit}>
+                        <form onSubmit={handleFormSubmit}>
                             <Input id='title' updateValue={handleValueUpdate} required />
                             <Input id='location' updateValue={handleValueUpdate} />
+                            <SelectInput options={TAGS} />
                             <Input id='comments' multiline updateValue={handleValueUpdate} />
                             <FileInput id='images' updateValue={handleValueUpdate} />
 
