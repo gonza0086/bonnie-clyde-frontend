@@ -1,0 +1,23 @@
+.card {
+    padding: 0.5%;
+    width: 30vw;
+}
+
+.list p {
+    margin-block: 2rem;
+}
+
+.buttons {
+    margin-top: 3%;
+    display: flex;
+    float: right;
+    gap: 5%;
+}
+
+.button {
+    margin-top: 0.5rem;
+}
+
+.divider {
+    margin-top: 1rem;
+}

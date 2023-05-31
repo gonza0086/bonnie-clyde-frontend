@@ -6,14 +6,26 @@ import { Plan, PlanSummary } from './components/barrels';
 import { useState } from 'react';
 
 // Mui
-import { Box, Button, Chip, FormControl, InputLabel, List, MenuItem, OutlinedInput, Select, Stack } from '@mui/material';
+import { Button, List, Stack } from '@mui/material';
 
 // Fake API
 const TAGS = ['Dia', 'Noche', 'Restaurant', 'Cine', 'Outdoor', 'Indoor'];
 
 export default function Plans() {
     const [plan, setPlan] = useState({});
-    const [plans, setPlans] = useState([]);
+    const [plans, setPlans] = useState([
+        {
+            id: 0,
+            title: 'Paseo Jardin Japones',
+            location: 'Palermo',
+            comments: 'Paseo por el jardin japones y almorzamos sushi!',
+            images: [],
+            tags: ['Dia', 'Outdoor', 'Restaurant'],
+            status: 0,
+            createdBy: 'Gonzalo Hernandez',
+            stars: 0,
+        },
+    ]);
     const [showPlan, setShowPlan] = useState(false);
     const [showCreatePlan, setShowCreatePlan] = useState(false);
 
@@ -44,7 +56,7 @@ export default function Plans() {
 
     const handleFormSubmit = e => {
         e.preventDefault();
-        console.log(newPlan);
+        setPlans(prevPlans => [...prevPlans, { ...newPlan, status: 0, createdBy: 'BANANA', stars: 0 }]);
     };
 
     const handleFormClose = () => {
@@ -93,6 +105,20 @@ export default function Plans() {
         setShowCreatePlan(true);
     };
 
+    const handleUpdate = keyValue => {
+        setPlan(prevPlan => ({ ...prevPlan, ...keyValue }));
+        setPlans(prevPlans =>
+            prevPlans.map(prevPlan => {
+                if (prevPlan.id === plan.id) return { ...plan, ...keyValue };
+                return prevPlan;
+            })
+        );
+    };
+
+    const handleDelete = id => {
+        setPlans(prevPlans => prevPlans.filter(prevPlan => prevPlan.id !== id));
+    };
+
     return (
         <div className='container'>
             <Title variant='title'>Plans to do</Title>
@@ -107,18 +133,18 @@ export default function Plans() {
             <Stack direction='row' gap={64}>
                 <List sx={{ width: '40%' }}>
                     {plans.map(plan => (
-                        <PlanSummary key={plan.id} plan={plan} onClick={handleSummaryClick}></PlanSummary>
+                        <PlanSummary key={plan.id} plan={plan} onClick={handleSummaryClick} onDelete={handleDelete} />
                     ))}
                 </List>
 
-                {showPlan && <Plan plan={plan} onClick={handleClose} />}
+                {showPlan && <Plan plan={plan} onClick={handleClose} onUpdate={handleUpdate} />}
                 {showCreatePlan && (
-                    <div style={{ width: '40vw' }}>
+                    <div style={{ width: '30vw' }}>
                         <Title variant='title'>Create Plan</Title>
                         <form onSubmit={handleFormSubmit}>
                             <Input id='title' updateValue={handleValueUpdate} required />
                             <Input id='location' updateValue={handleValueUpdate} />
-                            <SelectInput options={TAGS} />
+                            <SelectInput id='tags' options={TAGS} updateValue={handleValueUpdate} />
                             <Input id='comments' multiline updateValue={handleValueUpdate} />
                             <FileInput id='images' updateValue={handleValueUpdate} />
 

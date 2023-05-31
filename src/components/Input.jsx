@@ -10,8 +10,19 @@ import { TextField } from '@mui/material';
 // Styles
 import styles from '../styles/Input.module.css';
 
-export default function Input({ id, required, updateValue, type = 'text', style, inputProps, showPassword, multiline, children }) {
-    const [inputValue, setInputValue] = useState('');
+export default function Input({
+    id,
+    required,
+    initialValue = '',
+    updateValue,
+    type = 'text',
+    style,
+    inputProps,
+    showPassword,
+    multiline,
+    children,
+}) {
+    const [inputValue, setInputValue] = useState(initialValue);
     const [errorMessage, setErrorMessage] = useState('');
     const [isInitialState, setIsInitialState] = useState(true);
     const [valueIsValid, setValueIsValid] = useState(!required);

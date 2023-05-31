@@ -18,7 +18,7 @@ export default function Summary({ children, avatar, primaryText, secondaryText, 
                     <Title tag='h6'>{primaryText}</Title>
                 </ListItemText>
 
-                <ListItemIcon sx={{ gap: 1 }}>{children}</ListItemIcon>
+                <ListItemIcon sx={{ gap: 1, marginRight: '3%' }}>{children}</ListItemIcon>
             </ListItemButton>
         </ListItem>
     );

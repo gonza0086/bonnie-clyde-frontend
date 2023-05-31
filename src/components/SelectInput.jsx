@@ -1,24 +1,32 @@
 import { Box, Chip, FormControl, InputLabel, MenuItem, OutlinedInput, Select, TextField } from '@mui/material';
 import { useState } from 'react';
 
-export default function SelectInput({ options }) {
-    const [selections, setSelections] = useState([]);
+export default function SelectInput({ id, initialValue = [], options, updateValue }) {
+    const [selections, setSelections] = useState(initialValue);
     const [newOption, setNewOption] = useState('');
 
     const handleChange = event => {
         const value = event.target.value;
         setSelections(typeof value === 'string' ? value.split(',') : value);
+        updateValue(id, typeof value === 'string' ? value.split(',') : value, true);
     };
 
     const handleNewOption = e => {
         if (e.key === 'Enter') {
+            e.preventDefault();
             setSelections(prevSelections => [...prevSelections, newOption]);
             setNewOption('');
+            updateValue(id, [...selections, newOption], true);
         }
     };
 
     const handleDelete = value => {
         setSelections(prevSelections => prevSelections.filter(selection => selection !== value));
+        updateValue(
+            id,
+            selections.filter(selection => selection !== value),
+            true
+        );
     };
 
     return (
