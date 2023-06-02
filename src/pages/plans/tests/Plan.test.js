@@ -31,3 +31,16 @@ test('after submiting the edit form the form itself is closed and the updated pl
 
     expect(screen.queryByText('Edit Plan')).toBeNull();
 });
+
+test('the edit form has the field completed with the actual data of the plan', async () => {
+    renderWithProviders(<Plan plan={mockedPlan} />);
+
+    await userEvent.click(screen.getByRole('button', { name: 'Edit' }));
+
+    expect(screen.getByLabelText('Title *')).toHaveValue('Paseo Jardin Japones');
+    expect(screen.getByLabelText('Location')).toHaveValue('Palermo');
+    expect(screen.getByLabelText('Comments')).toHaveValue('Paseo por el jardin japones y almorzamos sushi!');
+    expect(screen.getByText('Dia')).toBeInTheDocument();
+    expect(screen.getByText('Outdoor')).toBeInTheDocument();
+    expect(screen.getByText('Restaurant')).toBeInTheDocument();
+});
