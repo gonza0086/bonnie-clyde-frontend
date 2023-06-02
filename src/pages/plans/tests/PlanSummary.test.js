@@ -8,13 +8,11 @@ import PlanSummary from '../components/PlanSummary';
 
 const plan = {
     id: 0,
-    name: 'Paseo Jardin Japones',
+    title: 'Paseo Jardin Japones',
     createdBy: 'Gonzalo Hernandez',
-    color: 'success',
-    tags: [
-        { label: 'Dia', color: 'secondary' },
-        { label: 'Paseo', color: 'primary' },
-    ],
+    status: 1,
+    tags: ['Dia', 'Paseo'],
+    comments: '',
 };
 
 test('when clicking plan summary callback function is called', async () => {

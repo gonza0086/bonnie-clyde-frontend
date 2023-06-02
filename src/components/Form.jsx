@@ -2,24 +2,14 @@
 import { cloneElement, useState } from 'react';
 
 // Mui
-import { Button } from '@mui/material';
+import { Button, Divider } from '@mui/material';
 
-export default function Form({ children, onSubmit, button, cancel, onCancel }) {
-    const initializeValueObject = () => {
-        let initialIsValidObject = {};
-        let initialValueObject = {};
+// utilities
+import { initializeValueObject } from '@/utilites/initializeValue';
 
-        children.forEach(input => {
-            initialIsValidObject[input.props.id] = input.props.required === undefined;
-            initialValueObject[input.props.id] = '';
-        });
-
-        return { initialIsValidObject, initialValueObject };
-    };
-
-    const { initialValueObject, initialIsValidObject } = initializeValueObject();
-    const [values, setValues] = useState(initialValueObject);
-    const [isValid, setIsValid] = useState(initialIsValidObject);
+export default function Form({ children, onSubmit, onCancel, initialValues, divider, button = 'Submit', justifyContent = 'center' }) {
+    const [values, setValues] = useState(initialValues);
+    const [isValid, setIsValid] = useState(initializeValueObject(children));
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -40,19 +30,20 @@ export default function Form({ children, onSubmit, button, cancel, onCancel }) {
     };
 
     return (
-        <form className='form' onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
             {children.map(input => cloneElement(input, { key: input.props.id, updateValue: handleValueUpdate }))}
-            {cancel && (
-                <>
+            <div style={{ marginTop: '1rem' }} />
+            {divider && <Divider />}
+            <div style={{ display: 'flex', justifyContent, gap: 5 }}>
+                {onCancel && (
                     <Button className='form-button' variant='contained' color='cancel' onClick={handleCancel}>
                         Cancel
                     </Button>
-                    <div style={{ display: 'inline-block', paddingInline: '1%' }} />
-                </>
-            )}
-            <Button className='form-button' type='submit' variant='contained' color='secondary' disabled={isDisabled()}>
-                {button}
-            </Button>
+                )}
+                <Button className='form-button' type='submit' variant='contained' color='secondary' disabled={isDisabled()}>
+                    {button}
+                </Button>
+            </div>
         </form>
     );
 }

@@ -6,85 +6,51 @@ import { Plan, PlanSummary } from './components/barrels';
 import { useState } from 'react';
 
 // Mui
-import { Button, List, Stack } from '@mui/material';
+import { Button, Card, List, Stack } from '@mui/material';
+
+// Styles
+import styles from './styles/Plan.module.css';
+import { useSelector } from 'react-redux';
+
+// Object
+const TAGS = ['Dia', 'Noche', 'Restaurant', 'Cine', 'Outdoor', 'Indoor'];
+const initialNewObject = {
+    title: '',
+    location: '',
+    comments: '',
+    images: [],
+    tags: [],
+};
 
 // Fake API
-const TAGS = ['Dia', 'Noche', 'Restaurant', 'Cine', 'Outdoor', 'Indoor'];
+const PLAN = {
+    id: 0,
+    title: 'Paseo Jardin Japones',
+    location: 'Palermo',
+    comments: 'Paseo por el jardin japones y almorzamos sushi!',
+    images: [],
+    tags: ['Dia', 'Outdoor', 'Restaurant'],
+    status: 0,
+    createdBy: 'Gonzalo Hernandez',
+    stars: 0,
+};
 
 export default function Plans() {
     const [plan, setPlan] = useState({});
-    const [plans, setPlans] = useState([
-        {
-            id: 0,
-            title: 'Paseo Jardin Japones',
-            location: 'Palermo',
-            comments: 'Paseo por el jardin japones y almorzamos sushi!',
-            images: [],
-            tags: ['Dia', 'Outdoor', 'Restaurant'],
-            status: 0,
-            createdBy: 'Gonzalo Hernandez',
-            stars: 0,
-        },
-    ]);
+    const [plans, setPlans] = useState([PLAN]);
     const [showPlan, setShowPlan] = useState(false);
     const [showCreatePlan, setShowCreatePlan] = useState(false);
+    const { data } = useSelector(state => state.user);
 
-    //
-    // Start Form Stuff
-    //
-
-    const [newPlan, setNewPlan] = useState({
-        title: '',
-        location: '',
-        comments: '',
-        images: [],
-        tags: [],
-    });
-
-    const [isValid, setIsValid] = useState({
-        title: false,
-        location: true,
-        comments: true,
-        images: true,
-        tags: true,
-    });
-
-    const handleValueUpdate = (id, newValue, isValueValid) => {
-        setNewPlan(prevValues => ({ ...prevValues, [id]: newValue }));
-        setIsValid(prevIsValid => ({ ...prevIsValid, [id]: isValueValid }));
-    };
-
-    const handleFormSubmit = e => {
-        e.preventDefault();
+    const handleFormSubmit = newPlan => {
+        // setPlans(prevPlans => [...prevPlans, { ...newPlan, status: 0, createdBy: `${data.firstName} ${data.lastName}`, stars: 0 }]);
         setPlans(prevPlans => [...prevPlans, { ...newPlan, status: 0, createdBy: 'BANANA', stars: 0 }]);
         setShowCreatePlan(false);
     };
 
     const handleFormClose = () => {
-        setNewPlan({
-            title: '',
-            location: '',
-            comments: '',
-            images: [],
-            tags: [],
-        });
-        setIsValid({
-            title: false,
-            location: true,
-            comments: true,
-            images: true,
-            tags: true,
-        });
         setShowCreatePlan(false);
     };
-
-    const isDisabled = () => {
-        return Object.values(isValid).includes(false);
-    };
-
-    //
-    // End Form Stuff
-    //
 
     const handleSearch = search => {
         console.log(search);
@@ -117,6 +83,7 @@ export default function Plans() {
     };
 
     const handleDelete = id => {
+        setShowPlan(false);
         setPlans(prevPlans => prevPlans.filter(prevPlan => prevPlan.id !== id));
     };
 
@@ -140,26 +107,23 @@ export default function Plans() {
 
                 {showPlan && <Plan plan={plan} onClick={handleClose} onUpdate={handleUpdate} />}
                 {showCreatePlan && (
-                    <div style={{ width: '30vw' }}>
+                    <Card className={styles.card}>
                         <Title variant='title'>Create Plan</Title>
-                        <form onSubmit={handleFormSubmit}>
-                            <Input id='title' updateValue={handleValueUpdate} required />
-                            <Input id='location' updateValue={handleValueUpdate} />
-                            <SelectInput id='tags' options={TAGS} updateValue={handleValueUpdate} />
-                            <Input id='comments' multiline updateValue={handleValueUpdate} />
-                            <FileInput id='images' updateValue={handleValueUpdate} />
-
-                            <div style={{ float: 'right', gap: '5%', display: 'flex' }}>
-                                <Button className='form-button' variant='contained' color='cancel' onClick={handleFormClose}>
-                                    Cancel
-                                </Button>
-
-                                <Button className='form-button' type='submit' variant='contained' color='secondary' disabled={isDisabled()}>
-                                    Create
-                                </Button>
-                            </div>
-                        </form>
-                    </div>
+                        <Form
+                            onSubmit={handleFormSubmit}
+                            onCancel={handleFormClose}
+                            initialValues={initialNewObject}
+                            button='Create'
+                            justifyContent='right'
+                            divider
+                        >
+                            <Input id='title' required />
+                            <Input id='location' />
+                            <SelectInput id='tags' options={TAGS} />
+                            <Input id='comments' multiline />
+                            <FileInput id='images' />
+                        </Form>
+                    </Card>
                 )}
             </Stack>
         </div>

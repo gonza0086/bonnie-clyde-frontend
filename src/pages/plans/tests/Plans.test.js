@@ -6,6 +6,7 @@ import userEvent from '@testing-library/user-event';
 // Components
 import Plans from '..';
 import { renderWithProviders } from '@/test-utilities/renderWithProviders';
+import { setupStore } from '@/test-utilities/setupStore';
 
 test('when clicking plan summary the detail of the summary opens', async () => {
     renderWithProviders(<Plans />);
@@ -79,13 +80,14 @@ test('when clicking the delete icon on a plan that plan is deleted', async () =>
 });
 
 test('after submiting the new plan form the plan summary is shown and the form is closed', async () => {
-    renderWithProviders(<Plans />);
+    renderWithProviders(<Plans />, setupStore({ user: { data: { firstName: 'Chiara', lastName: 'Bonanata' }, authenticated: true } }));
 
     await userEvent.click(screen.getByRole('button', { name: 'New Plan' }));
     await userEvent.type(screen.getByLabelText('Title *'), 'Ir a ver James Bond');
     await userEvent.click(screen.getByRole('button', { name: 'Create' }));
 
     expect(screen.getByText('Ir a ver James Bond')).toBeInTheDocument();
+    expect(screen.getByText('Chiara Bonanata')).toBeInTheDocument();
     expect(screen.queryByText('Create Plan')).toBeNull();
 });
 
@@ -99,6 +101,8 @@ test('after submiting the edit plan form the plan summary info related is change
     await userEvent.click(screen.getByRole('button', { name: 'Edit' }));
 
     expect(screen.getAllByText('Ir al Paseo del Agua')).toHaveLength(2);
+    expect(screen.getByText('Palermo')).toBeInTheDocument();
+    expect(screen.getByText('Paseo por el jardin japones y almorzamos sushi!')).toBeInTheDocument();
 });
 
 test('after clicking the done button the status icon turns into green', async () => {
