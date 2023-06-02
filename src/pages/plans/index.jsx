@@ -57,6 +57,7 @@ export default function Plans() {
     const handleFormSubmit = e => {
         e.preventDefault();
         setPlans(prevPlans => [...prevPlans, { ...newPlan, status: 0, createdBy: 'BANANA', stars: 0 }]);
+        setShowCreatePlan(false);
     };
 
     const handleFormClose = () => {
@@ -132,8 +133,8 @@ export default function Plans() {
 
             <Stack direction='row' gap={64}>
                 <List sx={{ width: '40%' }}>
-                    {plans.map(plan => (
-                        <PlanSummary key={plan.id} plan={plan} onClick={handleSummaryClick} onDelete={handleDelete} />
+                    {plans.map((plan, idx) => (
+                        <PlanSummary key={idx} plan={plan} onClick={handleSummaryClick} onDelete={handleDelete} />
                     ))}
                 </List>
 

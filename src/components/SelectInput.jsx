@@ -62,8 +62,9 @@ export default function SelectInput({ id, initialValue = [], options, updateValu
             <TextField
                 sx={{ width: '29%' }}
                 id='new_option'
+                label='Custom Tag'
                 value={newOption}
-                placeholder='Write tag and press Enter'
+                placeholder='Press Enter...'
                 onChange={e => setNewOption(e.target.value)}
                 onKeyDown={handleNewOption}
                 color='secondary'

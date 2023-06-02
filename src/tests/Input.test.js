@@ -1,11 +1,12 @@
 // Testing Library
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, getByTestId, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 // Components
-import { Input, PasswordInput } from '@/components';
+import { Input, PasswordInput, SelectInput } from '@/components';
 import RevalidationInput from '@/pages/signup/components/RevalidationInput';
+import { renderWithProviders } from '@/test-utilities/renderWithProviders';
 
 describe('<Input />', () => {
     test('error message appears when required input is cleared', async () => {
@@ -160,5 +161,24 @@ describe('<RevalidationPassword />', () => {
         await userEvent.type(emailInput, 'gonzalo@gmail.com');
         fireEvent.blur(emailInput);
         expect(screen.queryByText('repeat-email does not match email!')).toBeNull();
+    });
+});
+
+describe('<SelectInput />', () => {
+    test('after typing a new tag and pressing enter the chip appears in the select input', async () => {
+        const onUpdate = jest.fn();
+        renderWithProviders(<SelectInput id='tags' options={['Dia', 'Noche']} updateValue={onUpdate} />);
+
+        await userEvent.type(screen.getByLabelText('Custom Tag'), 'Paseo[Enter]');
+        expect(screen.getByText('Paseo')).toBeInTheDocument();
+    });
+
+    test('after clicking the close icon of a chip the chip itself is deleted', async () => {
+        const onUpdate = jest.fn();
+        renderWithProviders(<SelectInput id='tags' initialValue={['Dia']} options={['Dia', 'Noche']} updateValue={onUpdate} />);
+
+        expect(screen.getByText('Dia')).toBeInTheDocument();
+        await userEvent.click(screen.getByTestId('CancelIcon'));
+        expect(screen.queryByText('Dia')).toBeNull();
     });
 });
