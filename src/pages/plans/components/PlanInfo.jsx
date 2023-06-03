@@ -1,10 +1,18 @@
+// Components
 import { Title } from '@/components';
+
+// Mui
 import { Avatar, Box, Chip, Divider, IconButton, Rating, Stack, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+
+// Styles
 import styles from '../styles/Plan.module.css';
 
-export default function PlanInfo({ plan, onClick }) {
+// Utilities
+import { nameToColor, tagToColor } from '@/utilites/selectColorsFromString';
+
+export default function PlanInfo({ plan, onClick, onUpdate }) {
     return (
         <>
             <Stack direction='row' gap={2} alignItems='end' justifyContent='space-between'>
@@ -19,7 +27,7 @@ export default function PlanInfo({ plan, onClick }) {
                 <Stack direction='row' justifyContent='space-between'>
                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                         {plan.tags.map(tag => (
-                            <Chip key={tag} label={tag} />
+                            <Chip key={tag} label={tag} sx={{ backgroundColor: tagToColor(tag) }} />
                         ))}
                     </Box>
 
@@ -32,16 +40,24 @@ export default function PlanInfo({ plan, onClick }) {
                     />
                 </Stack>
 
-                <Stack direction='row' gap={1} alignItems='center'>
-                    <LocationOnIcon />
-                    <Typography>{plan.location}</Typography>
-                </Stack>
+                {plan.location && (
+                    <Stack direction='row' gap={1} alignItems='center'>
+                        <LocationOnIcon />
+                        <Typography>{plan.location}</Typography>
+                    </Stack>
+                )}
 
-                <Stack direction='row' gap={1} alignItems='baseline'>
-                    <Avatar sx={{ bgcolor: '#f1ff59', color: 'black' }}>{plan.createdBy.charAt(0).toUpperCase()}</Avatar>
-                    <Typography>{plan.comments}</Typography>
-                </Stack>
-                <Divider />
+                {plan.comments && (
+                    <>
+                        <Stack direction='row' gap={1} alignItems='baseline'>
+                            <Avatar sx={{ bgcolor: nameToColor(plan.createdBy), color: 'black' }}>
+                                {plan.createdBy.charAt(0).toUpperCase()}
+                            </Avatar>
+                            <Typography>{plan.comments}</Typography>
+                        </Stack>
+                        <Divider />
+                    </>
+                )}
             </ul>
         </>
     );

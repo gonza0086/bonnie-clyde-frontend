@@ -1,6 +1,7 @@
 .card {
     padding: 0.5%;
     width: 30vw;
+    height: fit-content;
 }
 
 .list p {

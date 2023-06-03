@@ -9,6 +9,9 @@ import { Button, Chip, Dialog, DialogActions, DialogTitle, IconButton } from '@m
 import CircleIcon from '@mui/icons-material/Circle';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+// Utilities
+import { stringToColor, tagToColor } from '@/utilites/selectColorsFromString';
+
 export default function PlanSummary({ plan, onClick, onDelete }) {
     const [showDialog, setShowDialog] = useState(false);
 
@@ -35,7 +38,7 @@ export default function PlanSummary({ plan, onClick, onDelete }) {
                 }
             >
                 {plan.tags.map(tag => (
-                    <Chip key={tag} label={tag} />
+                    <Chip key={tag} label={tag} sx={{ backgroundColor: tagToColor(tag) }} />
                 ))}
             </Summary>
 

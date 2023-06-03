@@ -13,6 +13,7 @@ import styles from '../styles/Input.module.css';
 export default function Input({
     id,
     required,
+    select,
     initialValue = '',
     updateValue,
     type = 'text',
@@ -50,6 +51,7 @@ export default function Input({
             id={id}
             label={label}
             value={inputValue}
+            select={select}
             required={required}
             style={style}
             multiline={multiline}

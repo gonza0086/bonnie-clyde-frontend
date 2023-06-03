@@ -187,3 +187,14 @@ test('after submiting filter form filters are applied', async () => {
     expect(screen.getByText('Cena Food Truck Store')).toBeInTheDocument();
     expect(screen.getByText('Paseo Jardin Japones')).toBeInTheDocument();
 });
+
+test('after submiting the search field title filter is applied', async () => {
+    renderWithProviders(<Plans />);
+
+    expect(screen.getByText('Paseo Jardin Japones')).toBeInTheDocument();
+    expect(screen.getByText('Cena Food Truck Store')).toBeInTheDocument();
+
+    await userEvent.type(screen.getByPlaceholderText('Search'), 'Paseo[Enter]');
+    expect(screen.getByText('Paseo Jardin Japones')).toBeInTheDocument();
+    expect(screen.queryByText('Cena Food Truck Store')).toBeNull();
+});

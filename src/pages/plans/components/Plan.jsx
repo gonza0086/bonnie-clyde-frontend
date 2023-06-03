@@ -43,7 +43,7 @@ export default function Plan({ plan, onClick, onUpdate }) {
 
     return (
         <>
-            <PlanInfo plan={plan} onClick={onClick} />
+            <PlanInfo plan={plan} onClick={onClick} onUpdate={onUpdate} />
             <div className={styles.buttons}>
                 <Button variant='contained' color='cancel' onClick={() => setShowEdit(true)}>
                     Edit
