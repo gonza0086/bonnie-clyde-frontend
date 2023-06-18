@@ -17,7 +17,7 @@ const handlers = [
         return res(
             ctx.status(201),
             ctx.json({
-                id: 0,
+                jwt: 'jwt',
             })
         );
     }),

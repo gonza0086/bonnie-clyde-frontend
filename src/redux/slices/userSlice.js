@@ -4,7 +4,7 @@ const initialState = {
     info: null,
     jwt: null,
     authenticated: false,
-    partner: false,
+    partner: null,
     receivedMatch: false,
     receivedMatchBy: null,
     sentMatch: false,

@@ -36,12 +36,13 @@ test('After completing the form and clicking the signup button the user gets red
 
     expect(store.getState().user).toStrictEqual({
         authenticated: true,
-        data: {
-            firstName: 'Gonzalo',
-            lastName: 'Hernandez',
-            email: 'gonza@gmail.com',
-            password: 'Password123',
-        },
+        jwt: 'jwt',
+        info: null,
+        partner: null,
+        receivedMatch: false,
+        receivedMatchBy: null,
+        sentMatch: false,
+        sentMatchTo: null,
     });
     expect(router.push).toHaveBeenCalledWith('/');
 });

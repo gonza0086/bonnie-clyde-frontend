@@ -95,7 +95,10 @@ test('when clicking the delete icon on a plan that plan is deleted', async () =>
 });
 
 test('after submiting the new plan form the plan summary is shown and the form is closed', async () => {
-    renderWithProviders(<Plans />, setupStore({ user: { data: { firstName: 'Chiara', lastName: 'Bonanata' }, authenticated: true } }));
+    renderWithProviders(
+        <Plans data={ONE_PLAN} />,
+        setupStore({ user: { info: { firstName: 'Chiara', lastName: 'Bonanata' }, authenticated: true } })
+    );
 
     await userEvent.click(screen.getByRole('button', { name: 'New Plan' }));
     await userEvent.type(screen.getByLabelText('Title *'), 'Ir a ver James Bond');

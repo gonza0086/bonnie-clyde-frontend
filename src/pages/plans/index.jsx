@@ -143,7 +143,7 @@ export default function Plans({ data = PLANS }) {
     };
 
     const handleSearch = search => {
-        setPlans(PLANS.filter(prevPlan => prevPlan.title.includes(search)));
+        setPlans(data.filter(prevPlan => prevPlan.title.includes(search)));
     };
 
     const handleSummaryClick = plan => {
@@ -185,7 +185,7 @@ export default function Plans({ data = PLANS }) {
 
     const handleFilterSubmit = values => {
         setPlans(
-            PLANS.filter(
+            data.filter(
                 prevPlan =>
                     prevPlan.title.includes(values.title) &&
                     (prevPlan.status === values.status || values.status === '') &&

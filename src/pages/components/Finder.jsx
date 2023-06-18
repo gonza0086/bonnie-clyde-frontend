@@ -22,7 +22,7 @@ const testUser = {
 };
 
 export default function Finder() {
-    const [data, setData] = useState([testUser]);
+    const [data, setData] = useState([]);
     const { receivedMatch, receivedMatchBy, sentMatch, sentMatchTo } = useSelector(state => state.user);
     const dispatch = useDispatch();
 

@@ -18,7 +18,7 @@ export default function Home() {
 
     if (partner) {
         router.push('/plans');
-    } else if (!authenticated) {
+    } else if (authenticated) {
         return <Finder />;
     } else {
         return (

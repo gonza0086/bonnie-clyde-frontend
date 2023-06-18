@@ -24,8 +24,8 @@ export function useAuth() {
         const adaptedUser = createAdaptedUser(user);
 
         try {
-            await postData('users/signup', adaptedUser);
-            dispatch(login(adaptedUser));
+            const response = await postData('users/signup', adaptedUser);
+            dispatch(login(response.jwt));
             router.push('/');
         } catch (error) {
             setError(error.message);

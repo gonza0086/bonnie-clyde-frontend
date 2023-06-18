@@ -22,9 +22,14 @@ describe('<Landing />', () => {
 
 describe('<Finder />', () => {
     test('when user is authenticated but does not have a partner finder renders', () => {
-        const store = setupStore({ user: { authenticated: true } });
+        const store = setupStore({
+            user: {
+                authenticated: true,
+                partner: null,
+            },
+        });
         renderWithProviders(<Home />, store);
 
-        expect(screen.getByText('Find your partner'));
+        expect(screen.findByText('Find your partner'));
     });
 });
