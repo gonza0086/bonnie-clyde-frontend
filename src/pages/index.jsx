@@ -10,19 +10,23 @@ import Finder from './components/Finder';
 
 export default function Home() {
     const router = useRouter();
-    const { authenticated } = useSelector(state => state.user);
+    const { authenticated, partner } = useSelector(state => state.user);
 
     const handleClick = () => {
         router.push('/signup');
     };
 
-    if (authenticated) return <Finder />;
-
-    return (
-        <div style={{ width: 'fit-content', margin: '30vh auto' }}>
-            <Button variant='contained' color='secondary' onClick={handleClick}>
-                Get Started
-            </Button>
-        </div>
-    );
+    if (partner) {
+        router.push('/plans');
+    } else if (!authenticated) {
+        return <Finder />;
+    } else {
+        return (
+            <div style={{ width: 'fit-content', margin: '30vh auto' }}>
+                <Button variant='contained' color='secondary' onClick={handleClick}>
+                    Get Started
+                </Button>
+            </div>
+        );
+    }
 }

@@ -2,25 +2,17 @@
 import Title from '@/components/Title';
 import { Form, Input, PasswordInput } from '@/components';
 
-// Next
-import { useRouter } from 'next/router';
-import { postData } from '@/services/postData';
-import { useState } from 'react';
+// Mui
 import { Typography } from '@mui/material';
 
+// Hooks
+import { useAuth } from '@/hooks';
+
 export default function Login() {
-    const [error, setError] = useState('');
-    const router = useRouter();
+    const { loginUser, error } = useAuth();
 
     const handleSubmit = async values => {
-        console.log(values);
-
-        try {
-            await postData('users/login', values);
-            router.push('/');
-        } catch (error) {
-            setError(error.message);
-        }
+        loginUser(values);
     };
 
     return (

@@ -134,8 +134,7 @@ export default function Plans({ data = PLANS }) {
     const { info } = useSelector(state => state.user);
 
     const handleFormSubmit = newPlan => {
-        // setPlans(prevPlans => [...prevPlans, { ...newPlan, status: 0, createdBy: `${info.firstName} ${info.lastName}`, stars: 0 }]);
-        setPlans(prevPlans => [...prevPlans, { ...newPlan, status: 0, createdBy: 'BANANA', stars: 0 }]);
+        setPlans(prevPlans => [...prevPlans, { ...newPlan, status: 0, createdBy: `${info.firstName} ${info.lastName}`, stars: 0 }]);
         setShowCreatePlan(false);
     };
 

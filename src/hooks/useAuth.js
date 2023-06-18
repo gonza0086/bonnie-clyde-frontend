@@ -32,5 +32,15 @@ export function useAuth() {
         }
     };
 
-    return { error, signup };
+    const loginUser = async credentials => {
+        try {
+            const response = await postData('users/login', credentials);
+            dispatch(login(response));
+            router.push('/');
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
+    return { error, signup, loginUser };
 }
