@@ -5,7 +5,7 @@ const initialState = {
     jwt: null,
     authenticated: false,
     partner: false,
-    receivedMatch: true,
+    receivedMatch: false,
     receivedMatchBy: null,
     sentMatch: false,
     sentMatchTo: null,
