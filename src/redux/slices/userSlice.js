@@ -1,14 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    info: null,
-    jwt: null,
+    info: {
+        partner: null,
+        jwt: null,
+    },
     authenticated: false,
-    partner: null,
-    receivedMatch: false,
-    receivedMatchBy: null,
-    sentMatch: false,
-    sentMatchTo: null,
 };
 
 export const userSlice = createSlice({
@@ -16,11 +13,11 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         login: (state, action) => {
-            state.jwt = action.payload;
+            state.info.jwt = action.payload;
             state.authenticated = true;
         },
         logout: state => {
-            state.data = null;
+            state.info = { partner: null, jwt: null };
             state.authenticated = false;
         },
         sendMatch: (state, action) => {
@@ -36,8 +33,11 @@ export const userSlice = createSlice({
             state.partner = state.receivedMatchBy;
             state.receivedMatchBy = null;
         },
+        match: (state, action) => {
+            state.info.partner = action.payload;
+        },
     },
 });
 
-export const { login, logout, sendMatch, declineMatch, acceptMatch } = userSlice.actions;
+export const { login, logout, sendMatch, declineMatch, acceptMatch, match } = userSlice.actions;
 export default userSlice.reducer;

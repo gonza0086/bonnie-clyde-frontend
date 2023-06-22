@@ -1,13 +1,14 @@
 import { Summary } from '@/components';
-import { sendMatch } from '@/redux/slices/userSlice';
+import { match } from '@/redux/slices/userSlice';
 import { nameToColor } from '@/utilites/selectColorsFromString';
 import { Avatar, Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function ProfileSummary({ user }) {
     const [matchedUser, setMatchedUser] = useState({});
     const [showDialog, setShowDialog] = useState(false);
+    const { info } = useSelector(state => state.user);
     const dispatch = useDispatch();
 
     const handleMatchClick = user => {
@@ -15,9 +16,26 @@ export default function ProfileSummary({ user }) {
         setShowDialog(true);
     };
 
-    const handleMatch = () => {
-        dispatch(sendMatch(matchedUser));
+    const handleMatch = async () => {
         setShowDialog(false);
+        try {
+            let response = await fetch(`http://localhost:8080/partner`, {
+                method: 'POST',
+                headers: {
+                    Authorization: 'Bearer ' + info.jwt.accessToken,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ to: matchedUser.id }),
+            });
+
+            let json = await response.json();
+            if (!response.ok) {
+                throw new Error(json.message);
+            }
+            dispatch(match(matchedUser.id));
+        } catch (error) {
+            console.log(error.message);
+        }
     };
 
     return (
