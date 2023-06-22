@@ -23,14 +23,28 @@ const testUser = {
 
 export default function Finder() {
     const [data, setData] = useState([]);
-    const { receivedMatch, receivedMatchBy, sentMatch, sentMatchTo } = useSelector(state => state.user);
+    const { jwt, receivedMatch, receivedMatchBy, sentMatch, sentMatchTo } = useSelector(state => state.user);
     const dispatch = useDispatch();
 
-    const handleSearch = searchValue => {
-        if ('Gonzalo Hernandez'.includes(searchValue)) {
-            setData([testUser]);
-        } else {
-            setData([]);
+    const handleSearch = async searchValue => {
+        console.log(jwt);
+        try {
+            let response = await fetch(`http://localhost:8080/search`, {
+                method: 'POST',
+                headers: {
+                    Authorization: 'Bearer ' + jwt.accessToken,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ search: searchValue }),
+            });
+
+            let json = await response.json();
+            if (!response.ok) {
+                throw new Error(json.message);
+            }
+            setData(json.result);
+        } catch (error) {
+            console.log(error.message);
         }
     };
 

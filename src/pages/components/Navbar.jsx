@@ -23,8 +23,7 @@ export default function Navbar() {
     };
 
     const handleLogout = () => {
-        // dispatch(logout());
-        console.log('Logout');
+        dispatch(logout());
     };
 
     return (
