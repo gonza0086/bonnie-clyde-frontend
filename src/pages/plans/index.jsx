@@ -34,6 +34,7 @@ const initialFilterObject = {
 export default function Plans({ data = [] }) {
     const [plan, setPlan] = useState({});
     const [plans, setPlans] = useState(data);
+    const [shownPlans, setShownPlans] = useState(data);
     const [shownPlansIndex, setShownPlansIndex] = useState({ first: 0, last: 7 });
     const [showPlan, setShowPlan] = useState(false);
     const [showCreatePlan, setShowCreatePlan] = useState(false);
@@ -45,6 +46,7 @@ export default function Plans({ data = [] }) {
 
     const handleFormSubmit = newPlan => {
         setPlans(prevPlans => [...prevPlans, { ...newPlan, status: 0, createdBy: `${info.firstName} ${info.lastName}`, stars: 0 }]);
+        setShownPlans(prevPlans => [...prevPlans, { ...newPlan, status: 0, createdBy: `${info.firstName} ${info.lastName}`, stars: 0 }]);
         setShowCreatePlan(false);
     };
 
@@ -53,7 +55,7 @@ export default function Plans({ data = [] }) {
     };
 
     const handleSearch = search => {
-        setPlans(data.filter(prevPlan => prevPlan.title.includes(search)));
+        setShownPlans(plans.filter(prevPlan => prevPlan.title.includes(search)));
     };
 
     const handleSummaryClick = plan => {
@@ -76,15 +78,22 @@ export default function Plans({ data = [] }) {
         setPlan(prevPlan => ({ ...prevPlan, ...keyValue }));
         setPlans(prevPlans =>
             prevPlans.map(prevPlan => {
-                if (prevPlan.id === plan.id) return { ...plan, ...keyValue };
+                if (prevPlan.title === plan.title) return { ...plan, ...keyValue };
+                return prevPlan;
+            })
+        );
+        setShownPlans(prevPlans =>
+            prevPlans.map(prevPlan => {
+                if (prevPlan.title === plan.title) return { ...plan, ...keyValue };
                 return prevPlan;
             })
         );
     };
 
-    const handleDelete = id => {
+    const handleDelete = title => {
         setShowPlan(false);
-        setPlans(prevPlans => prevPlans.filter(prevPlan => prevPlan.id !== id));
+        setPlans(prevPlans => prevPlans.filter(prevPlan => prevPlan.title !== title));
+        setShownPlans(prevPlans => prevPlans.filter(prevPlan => prevPlan.title !== title));
     };
 
     const handleRandom = () => {
@@ -94,8 +103,8 @@ export default function Plans({ data = [] }) {
     };
 
     const handleFilterSubmit = values => {
-        setPlans(
-            data.filter(
+        setShownPlans(
+            plans.filter(
                 prevPlan =>
                     prevPlan.title.includes(values.title) &&
                     (prevPlan.status === values.status || values.status === '') &&
@@ -109,7 +118,6 @@ export default function Plans({ data = [] }) {
     };
 
     const handlePagination = (event, page) => {
-        console.log(page);
         setShownPlansIndex({ first: (page - 1) * 7, last: page * 7 });
     };
 
@@ -133,8 +141,8 @@ export default function Plans({ data = [] }) {
             <Stack direction='row' gap={64}>
                 <div style={{ width: '40%', height: '65vh', position: 'relative' }}>
                     <List>
-                        {plans.slice(shownPlansIndex.first, shownPlansIndex.last).map((plan, idx) => (
-                            <PlanSummary key={idx} plan={plan} onClick={handleSummaryClick} onDelete={handleDelete} />
+                        {shownPlans.slice(shownPlansIndex.first, shownPlansIndex.last).map((plan, idx) => (
+                            <PlanSummary key={idx} plan={plan} onClick={handleSummaryClick} onDelete={() => handleDelete(plan.title)} />
                         ))}
                     </List>
                     <Pagination
@@ -167,7 +175,6 @@ export default function Plans({ data = [] }) {
                             <Input id='location' />
                             <SelectInput id='tags' options={TAGS} />
                             <Input id='comments' multiline />
-                            <FileInput id='images' />
                         </Form>
                     </Card>
                 )}

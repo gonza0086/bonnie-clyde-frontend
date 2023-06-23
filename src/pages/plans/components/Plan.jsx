@@ -35,7 +35,6 @@ export default function Plan({ plan, onClick, onUpdate }) {
                     <Input id='location' initialValue={plan.location} />
                     <SelectInput id='tags' initialValue={plan.tags} options={TAGS} />
                     <Input id='comments' initialValue={plan.comments} multiline />
-                    <FileInput id='images' />
                 </Form>
             </Card>
         );
